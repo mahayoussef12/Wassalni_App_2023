@@ -29,7 +29,8 @@ class AuthController extends GetxController {
           email: email,
           number: number,
           password: password,
-          role: role);
+          role: role,
+      activation: true);
       _createUserFirestore(newUser);
       //postDetailsToFirestore(name, email, number, password, role);
         })
