@@ -24,7 +24,7 @@ class _Siginup_ScreenState extends State<Siginup_Screen> {
       'Driver',
     ];
 
-    String? selectedValue;
+    String selectedValue="";
     var email="";
     var password="";
     var name="";
@@ -166,21 +166,24 @@ class _Siginup_ScreenState extends State<Siginup_Screen> {
                         return 'Please select Role.';
                       }
                     },
-                    onSaved: (value) {
+                      onChanged: (value) {
+                        //Do something when changing the item if you want.
+                      },
+                    onSaved: (value){
+                      setState(() {
+                        selectedValue = value.toString();
+                      });
 
-                      selectedValue = value.toString();
-                      controller.role=value.toString();
                     }
                   ),
                   const SizedBox(height: 10,),
                   SizedBox(
                     width: double.infinity,
                   child:ElevatedButton(
-
                       onPressed: (){
                     if(controller.checkLogin()==true){
                       Auth_controller.signUp(controller.nameController.text.trim(),controller.emailController.text.trim(),
-                         controller.numberController.text.trim(),controller.passwordController.text.trim(),controller.role);}
+                         controller.numberController.text.trim(),controller.passwordController.text.trim(),selectedValue);}
                     }
                       , child: Text("Signup")),
                   ),

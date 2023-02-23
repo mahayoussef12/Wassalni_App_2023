@@ -7,24 +7,18 @@ class ValidateScreen extends GetxController{
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
-  var  role="".obs as String;
 
   String? validateEmail(String value){
     if(!GetUtils.isEmail(value)){
       return "email invalid";
     }
-    else{
-      return "Email required";
-    }
+
     return null;
   }
   String? validatePassword(String value){
 
     if(value.length<6){
       return "Password must be of 6 characters";
-    }
-    else {
-      return "Password required";
     }
     return null;
   }
@@ -33,7 +27,7 @@ class ValidateScreen extends GetxController{
     if(value.length==7){
       return "Number must be equals to 8 characters";
     }
-    else {
+    else if(value.isEmpty) {
       return "Number required";
     }
     return null;

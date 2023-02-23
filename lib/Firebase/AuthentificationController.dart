@@ -37,6 +37,13 @@ class AuthController extends GetxController {
   }
   void _createUserFirestore(UserModel user) {
     _db.collection('users').add(user.toJson());
+    Get.snackbar(
+      "Add",
+      "Added product",
+      snackPosition: SnackPosition.BOTTOM,
+      duration: Duration(seconds: 1),
+      isDismissible: true,
+    );
   }
 
   /*postDetailsToFirestore(String name, String email, String number,
