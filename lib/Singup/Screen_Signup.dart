@@ -16,19 +16,18 @@ class Siginup_Screen extends StatefulWidget {
 class _Siginup_ScreenState extends State<Siginup_Screen> {
   final ValidateScreen controller=Get.put(ValidateScreen());
   final AuthController Auth_controller=Get.put(AuthController());
-
+  final List<String> genderItems = [
+    'User',
+    'Driver',
+  ];
+  var rool ;
+  var email="";
+  var password="";
+  var name="";
+  var number="";
   @override
   Widget build(BuildContext context) {
-    final List<String> genderItems = [
-      'User',
-      'Driver',
-    ];
 
-    String selectedValue="";
-    var email="";
-    var password="";
-    var name="";
-    var number="";
     return SafeArea(
       child:Scaffold(
       body:SingleChildScrollView(
@@ -166,15 +165,15 @@ class _Siginup_ScreenState extends State<Siginup_Screen> {
                         return 'Please select Role.';
                       }
                     },
-                      onChanged: (value) {
+                      onChanged: (newvalue) {
                         //Do something when changing the item if you want.
-                      },
-                    onSaved: (value){
-                      setState(() {
-                        selectedValue = value.toString();
-                      });
+                        setState(() {
+                          rool=newvalue!;
+                         // print(rool);
+                        });
 
-                    }
+                      },
+
                   ),
                   const SizedBox(height: 10,),
                   SizedBox(
@@ -182,8 +181,9 @@ class _Siginup_ScreenState extends State<Siginup_Screen> {
                   child:ElevatedButton(
                       onPressed: (){
                     if(controller.checkLogin()==true){
+                    // print(rool);
                       Auth_controller.signUp(controller.nameController.text.trim(),controller.emailController.text.trim(),
-                         controller.numberController.text.trim(),controller.passwordController.text.trim(),selectedValue);}
+                         controller.numberController.text.trim(),controller.passwordController.text.trim(),rool);}
                     }
                       , child: Text("Signup")),
                   ),
