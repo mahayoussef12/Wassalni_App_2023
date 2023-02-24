@@ -26,7 +26,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Column(
-
         children:[
           SizedBox(height: 50,),
           Image.asset("images/taxi.gif"),
@@ -36,7 +35,6 @@ class _MyHomePageState extends State<MyHomePage> {
               fontWeight: FontWeight.w900,
               fontStyle: FontStyle.italic,),
           ),),
-
           SizedBox(height: 50,),
           CircularProgressIndicator(backgroundColor: Colors.black,)
         ]));

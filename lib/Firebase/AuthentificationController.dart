@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import '../Model/User.dart';
+import '../Session_Driver/Session_Driver.dart';
+import '../Session_User/Session_User.dart';
 import 'firebase.auth.dart';
 
 class AuthController extends GetxController {
@@ -37,7 +39,8 @@ class AuthController extends GetxController {
         .catchError((e) {});
   }
   void _createUserFirestore(UserModel user) {
-    _db.collection('users').add(user.toJson());
+    var users = auth.currentUser;
+   _db.collection('users').doc(users!.uid).set(user.toJson());
 
     Get.snackbar(
       "Add",
@@ -75,20 +78,17 @@ class AuthController extends GetxController {
   }*/
 
 
-/*
+
 void route() {
-  User? user = FirebaseAuth.instance.currentUser;
-  var kk = FirebaseFirestore.instance
-      .collection('users')
-      .doc(user!.uid)
+   _db.collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
       .get()
       .then((DocumentSnapshot documentSnapshot) {
     if (documentSnapshot.exists) {
-      if (documentSnapshot.get('rool') == "Teacher") {
-
-        Get.to(Teacher());
+      if (documentSnapshot.get('role') == "User") {
+        Get.to(Session_User());
       }else{
-        Get.to(Student());
+        Get.to(Session_Driver());
       }
     } else {
       print('Document does not exist on the database');
@@ -99,11 +99,10 @@ void route() {
 void signIn(String email, String password) async {
 
     try {
-      UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      try {
+        await auth.signInWithEmailAndPassword(email: email, password: password)
+            .then((value) => route());
+      } catch (firebaseAuthException) {}
       route();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -114,5 +113,4 @@ void signIn(String email, String password) async {
     }
   }
 
-*/
 }

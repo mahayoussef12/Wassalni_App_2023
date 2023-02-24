@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Login/Login.dart';
 import '../Singup/Screen_Signup.dart';
 
 class screen extends StatelessWidget {
@@ -25,7 +26,9 @@ class screen extends StatelessWidget {
             ),
             Row(
               children: [
-                Expanded(child: OutlinedButton(onPressed: (){}, child: Text("Login".toUpperCase()),
+                Expanded(child: OutlinedButton(onPressed: (){
+                  Get.to(Login());
+                }, child: Text("Login".toUpperCase()),
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(),
                     foregroundColor: Colors.black,
