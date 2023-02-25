@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wassalni/Firebase/AuthentificationController.dart';
 import 'package:wassalni/Singup/ValidationSiginup.dart';
 
+import '../Login/Login.dart';
 import 'LoginHeaderWidget.dart';
 
 class Siginup_Screen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _Siginup_ScreenState extends State<Siginup_Screen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LoginHeaderWidget(),
+            LoginHeaderWidget(image: 'images/taxi1.png', title: 'Get On Board ', subtitle: 'Create your profile to start your journey',),
             Container(padding:EdgeInsets.symmetric(vertical: 20.0,),
               child: Form(
                 key:controller.loginFormKey,
@@ -185,8 +186,25 @@ class _Siginup_ScreenState extends State<Siginup_Screen> {
                       Auth_controller.signUp(controller.nameController.text.trim(),controller.emailController.text.trim(),
                          controller.numberController.text.trim(),controller.passwordController.text.trim(),rool);}
                     }
-                      , child: Text("Signup")),
+
+                      , child: Text("Signup"),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(),
+                      foregroundColor: Colors.white,
+                      side: BorderSide(
+                          color: Colors.black
+                      ),
+                  )),
                   ),
+                  const SizedBox(height: 20,),
+                  Center(child: Text("or".toUpperCase())),
+                  const SizedBox(height: 10,),
+                  Center(child:
+                  TextButton(onPressed:(){
+                    Get.to(Login());
+                  }, child: Text("Already have an  account")))
                 ],
               ),
 

@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Model/User.dart';
 import '../Session_Driver/Session_Driver.dart';
@@ -12,7 +13,7 @@ class AuthController extends GetxController {
   late Rx<User?> firebaseUser;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   String? get user => firebaseUser.value?.email;
-
+ var  verificationId=''.obs;
   @override
   void onReady() {
     super.onReady();
@@ -44,41 +45,12 @@ class AuthController extends GetxController {
 
     Get.snackbar(
       "Add",
-      user.role,
+      "Added successfully",
       snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: 1),
       isDismissible: true,
     );
   }
-
-  /*postDetailsToFirestore(String name, String email, String number,
-      String password, String? selectedValue) async {
-    var user = auth.currentUser;
-    CollectionReference ref = FirebaseFirestore.instance.collection('users');
-    ref.doc(user!.uid).set({
-      'name': name,
-      'email': email,
-      'number': number,
-      'password': password,
-      "selectedValue": selectedValue
-    });
-    Get.snackbar(
-      "Add",
-      "Added product",
-      icon: Icon(Icons.add_circle, color: Colors.white),
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.redAccent,
-      borderRadius: 20,
-      margin: EdgeInsets.all(15),
-      colorText: Colors.white,
-      duration: Duration(seconds: 1),
-      isDismissible: true,
-      forwardAnimationCurve: Curves.easeOutBack,
-    );
-  }*/
-
-
-
 void route() {
    _db.collection('users')
       .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -91,7 +63,14 @@ void route() {
         Get.to(Session_Driver());
       }
     } else {
-      print('Document does not exist on the database');
+      Get.snackbar(
+        "unsuccessful",
+        "Document does not exist on the database",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 1),
+        backgroundColor: Colors.redAccent,
+        isDismissible: true,
+      );
     }
   });
 }
@@ -107,10 +86,54 @@ void signIn(String email, String password) async {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
+        Get.snackbar(
+          "unsuccessful",
+          "No user found for that email.",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 1),
+          backgroundColor: Colors.redAccent,
+          isDismissible: true,
+        );
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
+        Get.snackbar(
+          "unsuccessful",
+          "Wrong password provided for that user.",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 1),
+          backgroundColor: Colors.redAccent,
+          isDismissible: true,
+        );
       }
     }
   }
+  Future<void> resetPassword({required String email}) async {
+    await auth.sendPasswordResetEmail(email: email);
 
+  }
+  Future<void> phoneAuthentification(String number) async {
+    await auth.verifyPhoneNumber(
+      phoneNumber: number,
+        verificationCompleted: (credential)async{
+        await auth.signInWithCredential(credential);
+        },
+        verificationFailed: (e){
+        if(e.code=='invalid-phone-number'){
+          Get.snackbar("Error", "The provided phone number is not valid");
+        }
+        else  Get.snackbar("Error", "Something wen wrong ! try again..");
+        },
+        codeSent:(verificationId, resendToken) async{
+        this.verificationId.value=verificationId;
+        },
+        codeAutoRetrievalTimeout: (verificationId)async{
+          this.verificationId.value=verificationId;
+        });
+  }
+  Future<bool> verifOTP(String otp) async{
+    var credentials= await auth.signInWithCredential(PhoneAuthProvider.credential(
+        verificationId: verificationId.value, smsCode: otp));
+   return credentials.user != null ?true : false;
+
+  }
 }

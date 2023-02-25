@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wassalni/ForgetPassword/forget_Email.dart';
+import 'package:wassalni/Singup/Screen_Signup.dart';
 
 import '../Firebase/AuthentificationController.dart';
+import '../ForgetPassword/btnForget.dart';
+import '../Singup/LoginHeaderWidget.dart';
 import 'ValidationLogin.dart';
-import 'loginWidget.dart';
+
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -15,12 +19,13 @@ class Login extends StatelessWidget {
     final AuthController Auth_controller=Get.put(AuthController());
     final ValidateLogin controller = Get.put(ValidateLogin());
     return SafeArea(child: Scaffold(
-        body:SingleChildScrollView(
-        padding: EdgeInsets.all(30.0),
+   body:SingleChildScrollView(
+    padding: const EdgeInsets.all(30.0),
+
     child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-    LoginWidget(),
+    LoginHeaderWidget(image: 'images/taxi1.png', title: 'Welcome!', subtitle: 'Wassalni is waiting for you',),
     Container(padding:EdgeInsets.symmetric(vertical: 20.0,),
     child: Form(
     key:controller.loginFormKey,
@@ -73,13 +78,52 @@ class Login extends StatelessWidget {
         width: double.infinity,
         child:ElevatedButton(
             onPressed: (){
-              if(controller.checkLogin()==true){
+              if(controller.checkLogin()){
                 // print(rool);
                 Auth_controller.signIn(controller.emailController.text.trim(),controller.passwordController.text.trim());}
-            }
-            , child: Text("Login")),
+              },
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            backgroundColor: Colors.black,
+            shape: const RoundedRectangleBorder(),
+            foregroundColor: Colors.white,
+            side: const BorderSide(
+                color: Colors.black
+            ),), child: Text("Login"))
       ),
+      const SizedBox(height: 10,),
+      Align(
+        alignment: Alignment.centerRight,
+        child: TextButton(onPressed: () {
+          showModalBottomSheet(context: context,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))
+              ,builder: (context)=>Container(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Selection",style: Theme.of(context).textTheme.headline2,),
+                Text("Select one of the option given below to reset your password",style: Theme.of(context).textTheme.bodyText2,),
+              const SizedBox(height: 30,),
+                btnForget(iconData: Icons.email_outlined, title: 'E-mail', subtitle: 'Reset password via E-mail', onTap: () { Get.to(Forget_Email()); },),
+                const SizedBox(height: 20.0,),
+                btnForget(iconData: Icons.mobile_friendly_rounded, title: 'Phone', subtitle: 'Reset password via Phone', onTap: () {  },),
+              ],
+            ),
+          ));
+        }, child: Text("Forgot Password ?"),
+          
+        ),
+      ),
+      const SizedBox(height: 20,),
+      Center(child: Text("or".toUpperCase())),
+      const SizedBox(height: 10,),
+      Center(child:
+      TextButton(onPressed:(){
+        Get.to(const Siginup_Screen());
+      }, child: const Text("Don't have an account ")))
 
     ])))]))));
   }
 }
+
