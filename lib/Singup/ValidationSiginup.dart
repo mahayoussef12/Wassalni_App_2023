@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ValidateScreen extends GetxController{
-  final GlobalKey<FormState> loginFormKey=GlobalKey<FormState>();
+  final GlobalKey<FormState> SiginFormKey=GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -24,7 +24,7 @@ class ValidateScreen extends GetxController{
   }
   String? validateNumber(String value){
 
-    if(value.length==7){
+    if(value.length==11){
       return "Number must be equals to 8 characters";
     }
     else if(value.isEmpty) {
@@ -41,7 +41,7 @@ class ValidateScreen extends GetxController{
 
 
   bool checkLogin(){
-    return loginFormKey.currentState!.validate();
+    return SiginFormKey.currentState!.validate();
   }
 
 

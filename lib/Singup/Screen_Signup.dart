@@ -39,7 +39,7 @@ class _Siginup_ScreenState extends State<Siginup_Screen> {
             LoginHeaderWidget(image: 'images/taxi1.png', title: 'Get On Board ', subtitle: 'Create your profile to start your journey',),
             Container(padding:EdgeInsets.symmetric(vertical: 20.0,),
               child: Form(
-                key:controller.loginFormKey,
+                key:controller.SiginFormKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
