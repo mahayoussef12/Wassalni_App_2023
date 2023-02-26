@@ -23,23 +23,8 @@ class AuthController extends GetxController {
     super.onReady();
     firebaseUser = Rx<User?>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+   // ever(firebaseUser, _setInitialScreen);
   }
-  _setInitialScreen(User? user) {
-    if (user != null) {
-      _db.collection('users')
-          .doc(user.uid)
-          .get()
-          .then((DocumentSnapshot documentSnapshot) {
-        if (documentSnapshot.exists) {
-          if (documentSnapshot.get('role') == "User") {
-            Get.offAll(Session_User());
-          } else {
-            Get.offAll(Session_Driver());
-          }
-        }
-      });
-    }}
 
   void signUp(String name, String email, String number, String password,
       String role,) async {
@@ -81,9 +66,9 @@ class AuthController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         if (documentSnapshot.get('role') == "User") {
-          Get.offAll(Session_User());
+          Get.offAll(const Session_User());
         } else {
-          Get.offAll(Session_Driver());
+          Get.offAll(const Session_Driver());
         }
       } else {
         Get.snackbar(
