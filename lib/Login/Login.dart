@@ -48,10 +48,10 @@ class Login extends StatelessWidget {
     controller: controller.emailController,
     onSaved: (value){
     email=value!;
+    },validator: (value){
+      return controller.validateEmail(value!);
     },
-    validator: (value){
-    return controller.validateEmail(value!);
-    },
+
     ),
     const SizedBox(height: 10,), TextFormField(
     decoration: const InputDecoration(
@@ -104,10 +104,9 @@ class Login extends StatelessWidget {
               children: [
                 Text("Selection",style: Theme.of(context).textTheme.headline2,),
                 Text("Select one of the option given below to reset your password",style: Theme.of(context).textTheme.bodyText2,),
-              const SizedBox(height: 30,),
+              const SizedBox(height: 120,),
                 btnForget(iconData: Icons.email_outlined, title: 'E-mail', subtitle: 'Reset password via E-mail', onTap: () { Get.to(Forget_Email()); },),
-                const SizedBox(height: 20.0,),
-                btnForget(iconData: Icons.mobile_friendly_rounded, title: 'Phone', subtitle: 'Reset password via Phone', onTap: () {  },),
+
               ],
             ),
           ));

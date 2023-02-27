@@ -12,7 +12,7 @@ class btnForget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0),
           color: Colors.grey.shade200,
         ),

@@ -23,7 +23,32 @@ class AuthController extends GetxController {
     super.onReady();
     firebaseUser = Rx<User?>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());
-   // ever(firebaseUser, _setInitialScreen);
+    ever(firebaseUser, _setInitialScreen);
+  }
+  _setInitialScreen(User? user) {
+    if (user != null) {
+      _db.collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          if (documentSnapshot.get('role') == "User") {
+            Get.off(const Session_User());
+          } else {
+            Get.off(const Session_Driver());
+          }
+        } else {
+          Get.snackbar(
+            "unsuccessful",
+            "Document does not exist on the database",
+            snackPosition: SnackPosition.BOTTOM,
+            duration: const Duration(seconds: 1),
+            backgroundColor: Colors.red.shade200,
+            isDismissible: true,
+          );
+        }
+      });
+    }
   }
 
   void signUp(String name, String email, String number, String password,

@@ -10,9 +10,9 @@ class Session_Driver extends StatelessWidget {
     final AuthController controller=Get.put(AuthController());
     return Scaffold(
       appBar: AppBar(title: const Text("Driver"),),
-      body: TextButton(onPressed: () {
+      body: Center(child:TextButton(onPressed: () {
         controller.signOut();
       }, child: const Text("signOut"),),
-    );
+    ));
   }
 }

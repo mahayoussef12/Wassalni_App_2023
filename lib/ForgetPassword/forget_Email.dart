@@ -36,7 +36,6 @@ class Forget_Email extends StatelessWidget {
              focusedBorder: OutlineInputBorder(
                  borderSide: BorderSide(width: 2.0,color: Colors.yellow)
              )
-
          ),
            ),
              const SizedBox(height: 20,),
