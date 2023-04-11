@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wassalni/Firebase/AuthentificationController.dart';
-import '../Adresse.dart';
+import 'package:wassalni/message/mainScreenChat.dart';
+import 'Adresse.dart';
 
 class Session_Driver extends StatelessWidget {
   const Session_Driver({Key? key}) : super(key: key);
@@ -54,9 +55,9 @@ class Session_Driver extends StatelessWidget {
                   onTap: () => {Navigator.of(context).pop()},
                 ),
                 ListTile(
-                  leading: Icon(Icons.border_color),
-                  title: Text('Feedback'),
-                  onTap: () => {Navigator.of(context).pop()},
+                  leading: Icon(Icons.messenger_outlined),
+                  title: Text('Chats'),
+                  onTap: () => {Get.to(mainScreen())},
                 ),
                 ListTile(
                   leading: Icon(Icons.exit_to_app),

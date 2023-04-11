@@ -48,18 +48,30 @@ dependencies:
   flutter_localization: ^0.1.10
   form_builder_validators: ^8.5.0
   custom_info_window: ^1.0.1
-
-
-
-
-
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   url_launcher: ^6.0.17
   flutter_phone_direct_caller: ^2.1.0
+  # For showing network images
+  cached_network_image: ^3.2.3
+
+  # For picking images
+  image_picker: ^0.8.6
+
+  # For accessing Firebase Storage (for uploading files)
+  firebase_storage: ^11.0.6
+
+  # For showing Emojis
+  emoji_picker_flutter: ^1.5.1
+
+  # For accessing firebase messaging (Push Notification)
+  firebase_messaging: ^14.2.0
+
+  # For creating notification channel
+  flutter_notification_channel: ^2.0.0
+
+  # For storing images into gallery
+  gallery_saver: ^2.3.2
+  bottom_navy_bar: ^6.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

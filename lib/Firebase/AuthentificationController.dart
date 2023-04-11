@@ -48,6 +48,7 @@ var label="".obs;
 
   void signUp(String name, String email, String number, String password,
       String role,) async {
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
     await auth.createUserWithEmailAndPassword(
         email: email, password: password).then((result) async {
       UserModel newUser = UserModel(
@@ -56,7 +57,8 @@ var label="".obs;
           number: number,
           password: password,
           role: role,
-          activation: true, latitude: 0, longitude: 0);
+          activation: true, latitude: 0, longitude: 0, image: 'hi',
+          id:  FirebaseAuth.instance.currentUser!.uid, pushToken: '', isOnline:false, lastActive: time);
       _createUserFirestore(newUser);
       Get.offAll(const Login());
 

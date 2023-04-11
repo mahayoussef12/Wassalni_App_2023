@@ -8,10 +8,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'Firebase/AuthentificationController.dart';
-import 'Session_User/Controller.dart';
+import '../Firebase/AuthentificationController.dart';
+import 'Controller.dart';
 import 'package:custom_info_window/custom_info_window.dart';
-import 'Session_User/TaxiReservationWidget.dart';
+import 'TaxiReservationWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 class CurrentLocationScreenUser extends StatefulWidget {
 
