@@ -1,0 +1,3 @@
+String appId="a1f8d72c8e104ee5bb2f38a9def0e9c5";
+String tempToken="007eJxTYOCJ3if3pPO7d5RdbfWptiv7thTlBE/59/OyIneLvdbsLnMFhkTDNIsUc6Nki1RDA5PUVNOkJKM0Y4tEy5TUNINUy2TTs0dNUxoCGRmyAg4xMEIhiM/CkJyRWMLAAACkFiDX";
+String channel="chat";

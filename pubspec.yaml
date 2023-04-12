@@ -72,6 +72,8 @@ dependencies:
   # For storing images into gallery
   gallery_saver: ^2.3.2
   bottom_navy_bar: ^6.0.0
+  agora_rtc_engine: ^5.3.0
+  permission_handler: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
