@@ -7,6 +7,27 @@ import '../Singup/LoginHeaderWidget.dart';
 
 
 
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Flutter FormBuilder Demo',
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        FormBuilderLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: FormBuilderLocalizations.supportedLocales,
+      home: CompleteForm(),
+    );
+  }
+}
+
 class CompleteForm extends StatefulWidget {
   const CompleteForm({Key? key}) : super(key: key);
 
@@ -27,16 +48,6 @@ class _CompleteFormState extends State<CompleteForm> {
   bool _songHasError = false;
 
   var genderOptions = ['Male', 'Female', 'Other'];
-
- String date ="";
- String song="";
- String things="";
-  String age="";
-  String gender="";
-
-
-
-
 
 
 
@@ -68,7 +79,7 @@ class _CompleteFormState extends State<CompleteForm> {
                   children: <Widget>[
                     const SizedBox(height: 15),
                     FormBuilderDateTimePicker(
-                      name: 'date',
+                      name: 'dateTime',
                       initialEntryMode: DatePickerEntryMode.calendar,
                       initialValue: DateTime.now(),
                       inputType: InputType.both,
@@ -77,8 +88,9 @@ class _CompleteFormState extends State<CompleteForm> {
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.calendar_month),
                           onPressed: () {
-                            _formKey.currentState!.fields['date']
-                                ?.didChange(null);
+                            final formValue= _formKey.currentState!.value;
+
+
                           },
                         ),
                       ),
@@ -100,6 +112,7 @@ class _CompleteFormState extends State<CompleteForm> {
                           _ageHasError = !(_formKey.currentState?.fields['age']
                               ?.validate() ??
                               false);
+
                         });
 
                       },
@@ -125,9 +138,9 @@ class _CompleteFormState extends State<CompleteForm> {
                       ),
                       onChanged: (val) {
                         setState(() {
-                          _thingHasError = !(_formKey.currentState?.fields['age']
-                            ?.validate() ??
-                            false);
+                          _thingHasError = !(_formKey.currentState?.fields['Things']
+                              ?.validate() ??
+                              false);
 
                         });
 
@@ -153,7 +166,7 @@ class _CompleteFormState extends State<CompleteForm> {
                       ),
                       onChanged: (val) {
                         setState(() {
-                          _songHasError = !(_formKey.currentState?.fields['age']
+                          _songHasError = !(_formKey.currentState?.fields['Song']
                               ?.validate() ??
                               false);
 
@@ -209,32 +222,36 @@ class _CompleteFormState extends State<CompleteForm> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () async {
-                        if (_formKey.currentState?.saveAndValidate() ?? false) {
+                        if ( _formKey.currentState?.saveAndValidate() ?? false) {
                           debugPrint(_formKey.currentState?.value.toString());
-                          final collectionRef = FirebaseFirestore.instance.collection('bookings');
-    try {
-    // Create a document with the form data
-    await collectionRef.doc().set({
-    "date": date,
-    "age": age,
-      "song": song,
-      "things":things,
-      "gender":gender,
+                          final firstore  = FirebaseFirestore.instance;
+                          final  formValue = _formKey.currentState!.value;
+                          final dateTime = formValue['dateTime'] as DateTime;
+                          final age = formValue['age'] ;
+                          final Song = formValue['Song'] ;
+                          final Things = formValue['Things'];
+                          final gender = formValue['gender'];
+                          firstore.collection('bookings').add({
+                            'dateTime':dateTime,
+                            'age':age,
+                            'Song':Song,
+                            'Things':Things,
+                            'gender':gender,});
+                          try {
+                            // Create a document with the form data
 
-    // add more fields as needed
-    });
 
-    // Show a success message to the user
-    ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text('Data saved successfully')),
-    );
-    } catch (error) {
-    // Show an error message to the user
-    ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text('Error: $error')),
-    );
-    }
-    } else {
+                            // Show a success message to the user
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Data saved successfully')),
+                            );
+                          } catch (error) {
+                            // Show an error message to the user
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error: $error')),
+                            );
+                          }
+                        } else {
                           debugPrint(_formKey.currentState?.value.toString());
                           debugPrint('validation failed');
                         }
@@ -273,9 +290,3 @@ class _CompleteFormState extends State<CompleteForm> {
 
 
 }
-
-
-
-
-
-
