@@ -30,6 +30,9 @@ class _Session_DriverState extends State<Session_Driver> {
         animType: AnimType.rightSlide,
         title: title,
         desc:description,
+        btnCancelOnPress: (){
+          Navigator.pop(context);
+        },
         btnOkOnPress: () {
           print(("test"));
           controller_Adresse.accepter(title);
