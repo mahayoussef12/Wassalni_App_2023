@@ -51,6 +51,7 @@ class AdresseController extends GetxController {
               'acceptation': true,
             }).then((value) {
               print('Base Firestore à jour');
+
             });
           }
         }
