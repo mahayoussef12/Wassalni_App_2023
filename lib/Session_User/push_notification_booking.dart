@@ -30,7 +30,7 @@ class Push {
   }
 
   // for sending push notification
-  static Future<void> sendPushNotification() async {
+  static Future<void> sendPushNotification(String id) async {
     final prefs = await SharedPreferences.getInstance();
 
     _db.collection('users')
@@ -43,7 +43,7 @@ class Push {
             final body = {
               "to":documentSnapshot.get('pushToken'),
               "notification": {
-                "title": "hi", //our name should be send
+                "title": id, //our name should be send
                 "body": "reservation",
                 "android_channel_id": "chats"
               },
@@ -53,7 +53,7 @@ class Push {
                 headers: {
                   HttpHeaders.contentTypeHeader: 'application/json',
                   HttpHeaders.authorizationHeader:
-                  'key=AAAAFN3Cc6w:APA91bEoxwM-nx-XpMA23wXut6VbW0H64ksl1UcYy6C4pHMVx0QuMJD7B-N51GcwLWG-9nYrckM7SNQZTSKv86_AF6_DQcvQW2ubOVPqRkqBWQeQJLx9hEmzMRI5BEez79dfa-841cxa'
+                  'key=AAAAFN3Cc6w:APA91bG-fEMPn9oV60tPFlc2zRn_Z3Y50xMQk2USRjnGoGBHi_aFO5unAp8a0qR3PTJZSX_UZIpQ9tYGOlEbMXegqoSs1DL4tMmhyIZTYIsU8Uq31ataj83Apspi6pa7yDh7ZlYwDPgB'
                 },
                 body: jsonEncode(body));
             log('Response status: ${res.statusCode}');

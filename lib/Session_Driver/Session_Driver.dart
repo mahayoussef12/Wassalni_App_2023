@@ -18,36 +18,32 @@ class Session_Driver extends StatefulWidget {
 class _Session_DriverState extends State<Session_Driver> {
   final AdresseController controller_Adresse = Get.put(AdresseController());
   @override
-  void initState() {
-    init();
-    super.initState();
-  }
-
   init() async {
     // listen for user to click on notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
       String? title = remoteMessage.notification!.title;
       String? description = remoteMessage.notification!.body;
-
       //im gonna have an alertdialog when clicking from push notification
       AwesomeDialog(
-          context: context,
-          dialogType: DialogType.info,
-          animType: AnimType.rightSlide,
-          title: title,
-          desc:description,
-          btnCancelOnPress: () {
-           // Get.back();
-          },
-      btnOkOnPress: () {
-    controller_Adresse.update();
-      },
+        context: context,
+        dialogType: DialogType.info,
+        animType: AnimType.rightSlide,
+        title: title,
+        desc:description,
+        btnOkOnPress: () {
+          print(("test"));
+          controller_Adresse.accepter(title);
+        },
       ).show();
     });
   }
 
-  @override
+  void initState() {
+    super.initState();
+    init();
+  }
 
+  @override
     Widget build(BuildContext context) {
       final AuthController controller=Get.put(AuthController());
       return Scaffold(
@@ -111,6 +107,4 @@ class _Session_DriverState extends State<Session_Driver> {
           ),
           body:const CurrentLocationScreen());
   }
-
-
 }

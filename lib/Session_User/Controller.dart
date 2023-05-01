@@ -19,7 +19,6 @@ class AdresseController extends GetxController {
 
   @override
   Future<void> onInit() async {
-
     ajouter();
     get();
     super.onInit();
@@ -30,7 +29,6 @@ class AdresseController extends GetxController {
         "role", isEqualTo: "Driver").where("activation", isEqualTo: true).get();
     final user = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
     userData.assignAll(user);
-
   }
 
   Future<void> get() async {
@@ -40,18 +38,25 @@ class AdresseController extends GetxController {
     bookingData.assignAll(data);
   }
 
-  accepter() async {
-    final prefs = await SharedPreferences.getInstance();
+  accepter(String? title)  {
     _firebaseFirestore.collection('bookings')
-        .doc(prefs.getString('iddoc')).update({
-      'acceptation': true,
-    }).then((value) async {
-      print('Base Firestore à jour');
-      await prefs.remove("iddoc");
+        .doc(title)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        {
+          if (documentSnapshot.get("acceptation") == false) {
+            _firebaseFirestore.collection('bookings')
+                .doc(title).update({
+              'acceptation': true,
+            }).then((value) {
+              print('Base Firestore à jour');
+            });
+          }
+        }
+      }
     });
   }
-
-
 }
 
 

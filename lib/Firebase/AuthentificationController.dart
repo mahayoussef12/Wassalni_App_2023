@@ -145,7 +145,9 @@ var label="".obs;
       duration: const Duration(seconds: 2),
       backgroundColor: Colors.green.shade200,
       isDismissible: true,
-    ));}
+    ),
+
+    );}
   void signOut() async {
     await auth.signOut().then((value) => Get.offAll(Login()));
   }

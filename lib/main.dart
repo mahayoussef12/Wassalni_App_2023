@@ -85,11 +85,15 @@ class MyApp extends StatelessWidget {
 
 
 _initializeFirebase() async {
-
   var result = await FlutterNotificationChannel.registerNotificationChannel(
       description: 'For Showing Message Notification',
       id: 'chats',
       importance: NotificationImportance.IMPORTANCE_HIGH,
+      visibility: NotificationVisibility.VISIBILITY_PUBLIC,
+      allowBubbles: true,
+      enableVibration: true,
+      enableSound: true,
+      showBadge: true,
       name: 'Chats');
   log('\nNotification Channel Result: $result');
 }

@@ -240,15 +240,15 @@ class _CompleteFormState extends State<CompleteForm> {
                             'idUser': FirebaseAuth.instance.currentUser!.uid,
                             }).then((DocumentReference doc) =>
                         //  print("id my doc is ${doc.id}"),
-                            prefs.setString("iddoc", doc.id)
-
+                          Push.sendPushNotification(doc.id)
                           );
                           try {
                             // Show a success message to the user
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Data saved successfully'))
                             );
-                            Push.sendPushNotification();
+
+
 
                             /*AwesomeDialog(
                                 context: context,
