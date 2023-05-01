@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -8,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Firebase/AuthentificationController.dart';
 import 'Controller.dart';
 import 'package:custom_info_window/custom_info_window.dart';
@@ -26,7 +29,7 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreenUser> {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState> ();
   CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
   final AdresseController controller_Adresse = Get.put(AdresseController());
-
+  bool _isShow = true;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   var address;
   final Completer<GoogleMapController> _controller = Completer();
@@ -45,19 +48,15 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreenUser> {
     zoom: 10,
   );
   @override
+  @override
   void initState() {
-    // TODO: implement initState
     Auth_controller.activation();
     super.initState();
-
   }
   void dispose(){
    _markers.clear();
     super.dispose();
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +188,8 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreenUser> {
 
                   ),
                 ),
-                     ]),
+
+            ]),
         )
     );
   }
@@ -245,7 +245,10 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreenUser> {
                                   ),
                                 ),
                                 const Spacer(),
-                                TextButton(onPressed: () {
+                                TextButton(onPressed: () async {
+                                  // obtain shared preferences
+                                  final prefs = await SharedPreferences.getInstance();
+                                  await prefs.setString('idDriver',i.id);
                                   Get.to(CompleteForm());
                                 }, child: Text("reservation")
                                   ,

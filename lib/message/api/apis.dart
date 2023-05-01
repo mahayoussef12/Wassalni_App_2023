@@ -53,16 +53,13 @@ class APIs {
           "body": msg,
           "android_channel_id": "chats"
         },
-        // "data": {
-        //   "some_data": "User ID: ${me.id}",
-        // },
       };
 
       var res = await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
             HttpHeaders.authorizationHeader:
-                'key=AAAAFN3Cc6w:APA91bGrruhAuw3Ih-6rXAjugMSP0fFZCn96qVPFoeAwlT9cAdtnbnQtLjNarWO2JwEp-8qP9sJsnj5xkSARX5Hrg0rXFKuwo62krjD2it0ihFnMPKDDDsh0a34zA1sTMLVd3WLJ2PG9'
+                'key=AAAAFN3Cc6w:APA91bEoxwM-nx-XpMA23wXut6VbW0H64ksl1UcYy6C4pHMVx0QuMJD7B-N51GcwLWG-9nYrckM7SNQZTSKv86_AF6_DQcvQW2ubOVPqRkqBWQeQJLx9hEmzMRI5BEez79dfa-841cxa'
           },
           body: jsonEncode(body));
       log('Response status: ${res.statusCode}');

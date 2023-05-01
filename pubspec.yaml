@@ -72,8 +72,16 @@ dependencies:
   # For storing images into gallery
   gallery_saver: ^2.3.2
   bottom_navy_bar: ^6.0.0
+  shared_preferences:
+  percent_indicator: ^4.2.3
+  awesome_dialog: ^3.0.2
+ # awesome_notifications: ^0.6.21
   agora_rtc_engine: ^5.3.0
   permission_handler: any
+  rflutter_alert: ^2.0.4
+  intl: ^0.17.0
+  flutter_rating_bar:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

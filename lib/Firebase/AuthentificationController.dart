@@ -21,6 +21,7 @@ class AuthController extends GetxController {
 var label="".obs;
 
 
+
   @override
   void onReady() {
     super.onReady();
@@ -57,7 +58,7 @@ var label="".obs;
           number: number,
           password: password,
           role: role,
-          activation: true, latitude: 0, longitude: 0, image: 'hi',
+          activation: true, latitude: 0, longitude: 0, image: 'https://www.mbaa.besancon.fr/wp-content/plugins/instagram-widget-by-wpzoom/assets/backend/img/user-avatar.jpg',
           id:  FirebaseAuth.instance.currentUser!.uid, pushToken: '', isOnline:false, lastActive: time);
       _createUserFirestore(newUser);
       Get.offAll(const Login());
@@ -192,7 +193,8 @@ var label="".obs;
     }
   });
 }
-}
 
+
+}
 
 

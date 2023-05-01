@@ -1,32 +1,21 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wassalni/Session_User/UserAdresse.dart';
+import 'package:wassalni/Session_User/push_notification_booking.dart';
 import '../Singup/LoginHeaderWidget.dart';
+import 'Controller.dart';
+import 'reservation.dart';
 
-
-
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter FormBuilder Demo',
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
-        FormBuilderLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: FormBuilderLocalizations.supportedLocales,
-      home: CompleteForm(),
-    );
-  }
-}
 
 class CompleteForm extends StatefulWidget {
   const CompleteForm({Key? key}) : super(key: key);
@@ -48,10 +37,12 @@ class _CompleteFormState extends State<CompleteForm> {
   bool _songHasError = false;
 
   var genderOptions = ['Male', 'Female', 'Other'];
+  bool _destinationHasError = false;
 
 
 
   void _onChanged(dynamic val) => debugPrint(val.toString());
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +80,6 @@ class _CompleteFormState extends State<CompleteForm> {
                           icon: const Icon(Icons.calendar_month),
                           onPressed: () {
                             final formValue= _formKey.currentState!.value;
-
-
                           },
                         ),
                       ),
@@ -140,11 +129,7 @@ class _CompleteFormState extends State<CompleteForm> {
                         setState(() {
                           _thingHasError = !(_formKey.currentState?.fields['Things']
                               ?.validate() ??
-                              false);
-
-                        });
-
-                      },
+                              false);});},
                       // valueTransformer: (text) => num.tryParse(text),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
@@ -167,16 +152,28 @@ class _CompleteFormState extends State<CompleteForm> {
                       onChanged: (val) {
                         setState(() {
                           _songHasError = !(_formKey.currentState?.fields['Song']
-                              ?.validate() ??
-                              false);
-
-                        });
-
-                      },
+                              ?.validate() ?? false);});},
                       // valueTransformer: (text) => num.tryParse(text),
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                      ]),
+                      validator: FormBuilderValidators.compose([FormBuilderValidators.required(),]),
+                      // initialValue: '12',
+                      textInputAction: TextInputAction.next,
+                    ),
+                    const SizedBox(width: 20),
+                    FormBuilderTextField(
+                      autovalidateMode: AutovalidateMode.always,
+                      name: 'Destination',
+                      decoration: InputDecoration(
+                        labelText: 'Enter Destination ',
+                        suffixIcon: _destinationHasError
+                            ? const Icon(Icons.error, color: Colors.red)
+                            : const Icon(Icons.music_note, color: Colors.green),
+                      ),
+                      onChanged: (val) {
+                        setState(() {
+                          _destinationHasError = !(_formKey.currentState?.fields['destination']
+                              ?.validate() ?? false);});},
+                      // valueTransformer: (text) => num.tryParse(text),
+                      validator: FormBuilderValidators.compose([FormBuilderValidators.required(),]),
                       // initialValue: '12',
                       textInputAction: TextInputAction.next,
                     ),
@@ -205,11 +202,7 @@ class _CompleteFormState extends State<CompleteForm> {
                       onChanged: (val) {
                         setState(() {
                           _genderHasError = !(_formKey
-                              .currentState?.fields['gender']
-                              ?.validate() ??
-                              false);
-                        });
-                      },
+                              .currentState?.fields['gender']?.validate() ?? false);});},
                       valueTransformer: (val) => val?.toString(),
                     ),
 
@@ -225,26 +218,52 @@ class _CompleteFormState extends State<CompleteForm> {
                         if ( _formKey.currentState?.saveAndValidate() ?? false) {
                           debugPrint(_formKey.currentState?.value.toString());
                           final firstore  = FirebaseFirestore.instance;
+                          final prefs = await SharedPreferences.getInstance();
+
                           final  formValue = _formKey.currentState!.value;
                           final dateTime = formValue['dateTime'] as DateTime;
                           final age = formValue['age'] ;
                           final Song = formValue['Song'] ;
                           final Things = formValue['Things'];
                           final gender = formValue['gender'];
+                          final destination=formValue['destination'];
+                          //var i=0;
                           firstore.collection('bookings').add({
                             'dateTime':dateTime,
                             'age':age,
                             'Song':Song,
+                            'destination':destination,
                             'Things':Things,
-                            'gender':gender,});
+                            'gender':gender,
+                            'idDriver': prefs.getString('idDriver'),
+                            'acceptation':false,
+                           // 'id': i++,
+                            'idUser': FirebaseAuth.instance.currentUser!.uid,
+                           // 'idUser':FirebaseAuth.instance.currentUser!.uid
+                            }).then((DocumentReference doc) =>
+                              prefs.setString("iddoc", doc.id)
+
+                          );
                           try {
-                            // Create a document with the form data
-
-
                             // Show a success message to the user
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Data saved successfully')),
+                              const SnackBar(content: Text('Data saved successfully'))
                             );
+                            Push.sendPushNotification();
+
+                            /*AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.success,
+                                animType: AnimType.rightSlide,
+                                title: 'Reservation ',
+                                desc: 'reservation done',
+                                btnCancelOnPress: () {},
+                        btnOkOnPress: () {
+                                  Get.to(Reservation());
+                                  prefs.setInt("iddoc", i);
+                        },
+                        ).show();*/
+
                           } catch (error) {
                             // Show an error message to the user
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -288,5 +307,5 @@ class _CompleteFormState extends State<CompleteForm> {
     );
   }
 
-
 }
+

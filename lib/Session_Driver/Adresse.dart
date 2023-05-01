@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../Firebase/AuthentificationController.dart';
 class CurrentLocationScreen extends StatefulWidget {
 
@@ -48,12 +50,12 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     _markers.addAll(list);
     Auth_controller.activation();
     //loadData();
   }
-
 
   @override
   Widget build(BuildContext context) {
