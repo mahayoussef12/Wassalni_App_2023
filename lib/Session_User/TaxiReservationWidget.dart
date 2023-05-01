@@ -237,11 +237,10 @@ class _CompleteFormState extends State<CompleteForm> {
                             'gender':gender,
                             'idDriver': prefs.getString('idDriver'),
                             'acceptation':false,
-                           // 'id': i++,
                             'idUser': FirebaseAuth.instance.currentUser!.uid,
-                           // 'idUser':FirebaseAuth.instance.currentUser!.uid
                             }).then((DocumentReference doc) =>
-                              prefs.setString("iddoc", doc.id)
+                        //  print("id my doc is ${doc.id}"),
+                            prefs.setString("iddoc", doc.id)
 
                           );
                           try {
