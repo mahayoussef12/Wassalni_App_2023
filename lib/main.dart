@@ -13,50 +13,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Splash/spalsh_screen.dart';
 late Size mq;
-/*
-Future<void> backgroundHandler(RemoteMessage message) async{
-  String? title=message.notification!.title;
-  String? body=message.notification!.body;
-  AwesomeNotifications().createNotification(content:
-  NotificationContent(id: 123, channelKey: "Reservation_channel",color: Colors.white,
-    title: title,
-    body: body,
-    category: NotificationCategory.Call,
-    wakeUpScreen: true,
-    fullScreenIntent: true,
-    autoDismissible: false,
-    backgroundColor:Colors.orange,
-
-  ),
-      actionButtons: [
-        NotificationActionButton(key:"ACCEPT", label: "Accept reservation",
-          color: Colors.green,
-          autoDismissible: true,
-        ),
-        NotificationActionButton(key:"REJECT", label: "Reject reservation",
-          color: Colors.green,
-          autoDismissible: true,
-        )
-      ]);
-
-}
-*/
 
 Future<void> main() async {
-  /*AwesomeNotifications().initialize(null,[
-    NotificationChannel(
-        channelKey: "Reservation_channel",
-        channelName: "Reservation_channel",
-        channelDescription: "Reservation_channel",
-        defaultColor: Colors.redAccent,
-      ledColor: Colors.white, importance: NotificationImportance.Max,
-      channelShowBadge: true,
-      locked: true,
-      defaultRingtoneType: DefaultRingtoneType.Ringtone
-
-    )
-]);
-  FirebaseMessaging.onBackgroundMessage(backgroundHandler);*/
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Stripe.publishableKey = "pk_test_51MyjRmG1Pb689ekQXSnaNb3T5zlM4AtWEw9ilaAeGxy07b4tVsjUyEqek0oRllNtoEhFkZ6TSx6JY6lww6sQTM5s00LO1tBdGY";
