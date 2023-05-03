@@ -6,6 +6,7 @@ import 'package:wassalni/Singup/Screen_Signup.dart';
 import '../Firebase/AuthentificationController.dart';
 import '../ForgetPassword/btnForget.dart';
 import '../Singup/LoginHeaderWidget.dart';
+import '../chatBot/chatbody.dart';
 import 'ValidationLogin.dart';
 
 
@@ -120,7 +121,11 @@ class Login extends StatelessWidget {
       Center(child:
       TextButton(onPressed:(){
         Get.to(const Siginup_Screen());
-      }, child: const Text("Don't have an account ")))
+      }, child: const Text("Don't have an account "))),
+      ElevatedButton(onPressed:
+          (){ Get.to(ChatPage());
+
+      }, child:Icon(Icons.mark_unread_chat_alt) )
 
     ])))]))));
   }

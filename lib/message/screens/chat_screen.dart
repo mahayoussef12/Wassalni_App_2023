@@ -80,9 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         case ConnectionState.active:
                         case ConnectionState.done:
                           final data = snapshot.data?.docs;
-                          _list = data?.map((e) => Message.fromJson(e.data())).toList() ??
-                              [];
-
+                          _list = data?.map((e) => Message.fromJson(e.data())).toList() ?? [];
                           if (_list.isNotEmpty) {
                             return ListView.builder(
                                 reverse: true,
