@@ -38,7 +38,9 @@ class AdresseController extends GetxController {
     bookingData.assignAll(data);
   }
 
-  accepter(String? title)  {
+  accepter(String? title)  async {
+    final prefs = await SharedPreferences.getInstance();
+
     _firebaseFirestore.collection('bookings')
         .doc(title)
         .get()
@@ -50,17 +52,17 @@ class AdresseController extends GetxController {
                 .doc(title).update({
               'acceptation': true,
             }).then((value) {
-              print('Base Firestore à jour');
+              prefs.setString("document",documentSnapshot.get("idUser"));
 
-            });
+             // Push.sendNotification(snapshot.get("pushToken"));
+              print('Base Fireestore à jour');});
+
           }
         }
       }
     });
   }
-  getComment(){
 
-  }
 }
 
 

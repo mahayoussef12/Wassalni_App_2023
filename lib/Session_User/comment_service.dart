@@ -59,12 +59,6 @@ class Controller_Feedback extends GetxController {
     }
   }
 
-// Récupérez tous les commentaires de la base de données
-/*  Future<void> getComments() async {
-    final snapshot = await FirebaseFirestore.instance.collection('comments').where('idUser', isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
-    final data = snapshot.docs.map((e) => Comment.fromSnapshot(e)).toList();
-    comments.assignAll(data);
-  }*/
 // for getting all users from firestore database
   static Stream<QuerySnapshot<Map<String, dynamic>>> getComments() {
 

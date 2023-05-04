@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:wassalni/Firebase/AuthentificationController.dart';
+import 'package:wassalni/Session_User/push_notification_booking.dart';
 import 'package:wassalni/message/mainScreenChat.dart';
 import '../Session_User/Controller.dart';
+import '../Session_User/UpdateScreen.dart';
 import 'Adresse.dart';
 
 class Session_Driver extends StatefulWidget {
@@ -34,9 +36,8 @@ class _Session_DriverState extends State<Session_Driver> {
           Navigator.pop(context);
         },
         btnOkOnPress: () {
-          print(("test"));
           controller_Adresse.accepter(title);
-
+          Push.sendNotification();
         },
       ).show();
     });
@@ -80,29 +81,29 @@ class _Session_DriverState extends State<Session_Driver> {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(Icons.input),
-                    title: Text('Welcome'),
+                    leading: const Icon(Icons.input),
+                    title: const Text('Welcome'),
                     onTap: () => {},
                   ),
                   ListTile(
-                    leading: Icon(Icons.verified_user),
-                    title: Text('Profile'),
+                    leading: const Icon(Icons.verified_user),
+                    title: const Text('Profile'),
+                    onTap: () => {Get.to(ProfileUpdateScreen())},
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: const Text('Settings'),
                     onTap: () => {Navigator.of(context).pop()},
                   ),
                   ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text('Settings'),
-                    onTap: () => {Navigator.of(context).pop()},
+                    leading: const Icon(Icons.messenger_outlined),
+                    title: const Text('Chats'),
+                    onTap: () => {Get.to(const mainScreen())},
                   ),
                   ListTile(
-                    leading: Icon(Icons.messenger_outlined),
-                    title: Text('Chats'),
-                    onTap: () => {Get.to(mainScreen())},
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.exit_to_app),
-                    title: Text('Logout'),
-                    onTap: () => {Navigator.of(context).pop()},
+                    leading: const Icon(Icons.exit_to_app),
+                    title: const Text('Logout'),
+                    onTap: () => {controller.signOut()},
                   ),
                 ],
               ),

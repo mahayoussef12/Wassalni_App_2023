@@ -1,8 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:wassalni/Firebase/AuthentificationController.dart';
+import 'package:wassalni/Session_User/UpdateScreen.dart';
 
 import 'package:wassalni/Session_User/UserAdresse.dart';
 import 'package:http/http.dart' as http;
@@ -21,9 +24,33 @@ class Session_User extends StatefulWidget {
 class _Session_UserState extends State<Session_User> {
 
   Map<String, dynamic>? paymentIntent;
-//class Session_User extends StatelessWidget {
-  //const Session_User({Key? key}) : super(key: key);
-  //Map<String, dynamic>? paymentIntent;
+  @override
+  init() async {
+    // listen for user to click on notification
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
+      String? title = remoteMessage.notification!.title;
+      String? description = remoteMessage.notification!.body;
+      //im gonna have an alertdialog when clicking from push notification
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.question,
+        animType: AnimType.rightSlide,
+        title: title,
+        desc:description,
+        btnCancelOnPress: (){
+          Navigator.pop(context);
+        },
+        btnOkOnPress: () async {
+          await makePayment();
+        },
+      ).show();
+    });
+  }
+
+  void initState() {
+    super.initState();
+    init();
+  }
   @override
   Widget build(BuildContext context){
     final AuthController controller=Get.put(AuthController());
@@ -47,7 +74,7 @@ class _Session_UserState extends State<Session_User> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                DrawerHeader(
+                const DrawerHeader(
                   child: Text(
                     'Menu',
                     style: TextStyle(color: Colors.white, fontSize: 25),
@@ -64,12 +91,12 @@ class _Session_UserState extends State<Session_User> {
                   onTap: () => {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.verified_user),
-                  title: Text('Profile'),
-                  onTap: () => {Navigator.of(context).pop()},
+                  leading: const Icon(Icons.verified_user),
+                  title: const Text('Profile'),
+                  onTap: () => {Get.to(ProfileUpdateScreen())},
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: const Icon(Icons.settings),
                   title: Text('Settings'),
                   onTap: () => {Navigator.of(context).pop()},
                 ),

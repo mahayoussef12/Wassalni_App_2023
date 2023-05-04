@@ -41,7 +41,7 @@ class Push {
         {
           try {
             final body = {
-              "to":documentSnapshot.get('pushToken'),
+              "to": documentSnapshot.get('pushToken'),
               "notification": {
                 "title": id, //our name should be send
                 "body": "reservation",
@@ -49,7 +49,8 @@ class Push {
               },
             };
 
-            var res = await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+            var res = await post(
+                Uri.parse('https://fcm.googleapis.com/fcm/send'),
                 headers: {
                   HttpHeaders.contentTypeHeader: 'application/json',
                   HttpHeaders.authorizationHeader:
@@ -61,7 +62,45 @@ class Push {
           } catch (e) {
             log('\nsendPushNotificationE: $e');
           }
-    }}});
+        }
+      }
+    });
   }
 
+  static Future<void> sendNotification() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString("document");
+    _db.collection('users')
+        .doc(prefs.getString('document'))
+        .get()
+        .then((DocumentSnapshot documentSnapshot) async {
+      if (documentSnapshot.exists) {
+        {
+          try {
+            final body = {
+              "to": documentSnapshot.get('pushToken'),
+              "notification": {
+                "title": "payment", //our name should be send
+                "body": "Pay Now ",
+                "android_channel_id": "chats"
+              },
+            };
+
+            var res = await post(
+                Uri.parse('https://fcm.googleapis.com/fcm/send'),
+                headers: {
+                  HttpHeaders.contentTypeHeader: 'application/json',
+                  HttpHeaders.authorizationHeader:
+                  'key=AAAAFN3Cc6w:APA91bG-fEMPn9oV60tPFlc2zRn_Z3Y50xMQk2USRjnGoGBHi_aFO5unAp8a0qR3PTJZSX_UZIpQ9tYGOlEbMXegqoSs1DL4tMmhyIZTYIsU8Uq31ataj83Apspi6pa7yDh7ZlYwDPgB'
+                },
+                body: jsonEncode(body));
+            log('Response status: ${res.statusCode}');
+            log('Response ody: ${res.body}');
+          } catch (e) {
+            log('\nsendPushhNotificationE: $e');
+          }
+        }
+      }
+    });
+  }
 }
