@@ -1,5 +1,6 @@
 
 import 'dart:developer';
+import 'dart:io';
 
 
 import 'package:firebase_core/firebase_core.dart';
@@ -13,7 +14,14 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Splash/spalsh_screen.dart';
 late Size mq;
-
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -26,6 +34,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((value) {
     _initializeFirebase();
+    HttpOverrides.global = MyHttpOverrides();
     runApp(MyApp());
   });
 }

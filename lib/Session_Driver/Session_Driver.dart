@@ -5,11 +5,14 @@ import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:wassalni/Firebase/AuthentificationController.dart';
 import 'package:wassalni/Session_User/push_notification_booking.dart';
+import 'package:wassalni/Splash/spalsh_screen.dart';
 import 'package:wassalni/message/mainScreenChat.dart';
 import '../Session_User/Controller.dart';
 import '../Session_User/UpdateScreen.dart';
+import '../Weather/ui/widgets/app/my_app.dart';
 import 'Adresse.dart';
 import 'ReservationListScreenDriver.dart';
+import 'audio_player.dart';
 
 class Session_Driver extends StatefulWidget {
   const Session_Driver({Key? key}) : super(key: key);
@@ -101,6 +104,11 @@ class _Session_DriverState extends State<Session_Driver> {
                       leading: Icon(Icons.taxi_alert),
                       title: Text('Taxi Reservation'),
                       onTap : ()  {Get.to(ReservationlistScreenDriver());}
+                  ),
+                  ListTile(
+                      leading: Icon(Icons.ac_unit_rounded),
+                      title: Text('Weather'),
+                    onTap: () => {Get.to(const weather())},
                   ),
                   ListTile(
                     leading: const Icon(Icons.exit_to_app),

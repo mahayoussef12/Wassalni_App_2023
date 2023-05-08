@@ -7,7 +7,7 @@ class ValidateScreen extends GetxController{
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
-
+  var isLoading = false.obs;
   String? validateEmail(String value){
     if(!GetUtils.isEmail(value)){
       return "email invalid";
@@ -40,8 +40,9 @@ class ValidateScreen extends GetxController{
   }
 
 
-  bool checkLogin(){
-    return SiginFormKey.currentState!.validate();
+  checkLogin(){
+    isLoading.value = true;
+  SiginFormKey.currentState!.validate();
   }
 
 

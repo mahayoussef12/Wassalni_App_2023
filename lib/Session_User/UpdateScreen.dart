@@ -135,20 +135,31 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
-                                  onPressed: () {
-                                    if (controller.checkLogin() == true) {
-                                      updateUserData();
-                                      Navigator.pop(context);
-                                    }
-                                  },
-                                  child: const Text('Update Profile'),
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 0,
-                                    backgroundColor: Colors.black,
-                                    shape: RoundedRectangleBorder(),
-                                    foregroundColor: Colors.white,
-                                    side: BorderSide(color: Colors.black),
-                                  )),
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  backgroundColor: Colors.black,
+                                  shape: RoundedRectangleBorder(),
+                                  foregroundColor: Colors.white,
+                                  side: BorderSide(
+                                      color: Colors.black
+                                  ),),
+                                onPressed: () {
+                                  updateUserData();
+                                  Navigator.pop(context);  },
+                                child: FittedBox(
+                                  child: Obx(
+                                        () => controller.isLoading.value
+
+                                            ? Center(
+                                      child: CircularProgressIndicator(color: Colors.white,),
+                                    )
+                                        : Text(
+                                      'Update',
+                                    ),
+                                  ),
+                                ),
+
+                              ),
                             ),
                           ])))
             ])));

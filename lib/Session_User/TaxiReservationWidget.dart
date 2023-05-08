@@ -154,7 +154,7 @@ class _CompleteFormState extends State<CompleteForm> {
                         labelText: 'Enter Destination ',
                         suffixIcon: _destinationHasError
                             ? const Icon(Icons.error, color: Colors.red)
-                            : const Icon(Icons.music_note, color: Colors.green),
+                            : const Icon(Icons.map_sharp, color: Colors.green),
                       ),
                       onChanged: (val) {
                         setState(() {
@@ -235,6 +235,7 @@ class _CompleteFormState extends State<CompleteForm> {
                             {'id': taskId},
                           );
                           Push.sendPushNotification(taskId);
+
                           try {
                             // Show a success message to the user
                             ScaffoldMessenger.of(context).showSnackBar(

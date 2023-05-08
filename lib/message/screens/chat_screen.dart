@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wassalni/Model/User.dart';
-import 'package:wassalni/Video_Appel_Call/Audio_Call.dart';
 
 import '../../main.dart';
 import '../api/apis.dart';
@@ -202,9 +201,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               fontSize: 13, color: Colors.black54)),
                     ],
                   ),
-                  IconButton(onPressed: (){
-                    Get.to(audio_call());
-                    }, icon: Icon(Icons.call_end))
+
                 ],
               );
             }));

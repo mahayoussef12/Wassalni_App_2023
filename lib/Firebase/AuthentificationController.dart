@@ -97,19 +97,25 @@ var label="".obs;
   void signIn(String email, String password) async {
 
       try {
-        await auth.signInWithEmailAndPassword(email: email, password: password).then((value) => route());
-      } catch (firebaseAuthException ) {
-        Get.snackbar(
-          "unsuccessful",
-          "Document does not exist on the database",
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 1),
-          backgroundColor: Colors.red.shade200,
+        await auth.signInWithEmailAndPassword(email: email, password: password).then((value)async =>  {
+        if (value != null) {
+            if (! FirebaseAuth.instance.currentUser!.emailVerified) {
+              route()
+        }
 
-        );
-
+      } else {
+            Get.snackbar('user',"User not found")
+    }
+    });
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          Get.snackbar('unsuccessful',"No user found for that email.");
+        } else if (e.code == 'wrong-password') {
+          Get.snackbar('unsuccessful',"Wrong password provided for that user.");
+        }
+      } catch (e) {
+        print(e);
       }
-
 
   }
 
