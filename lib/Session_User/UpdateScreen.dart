@@ -52,7 +52,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Update Profile'),
+          title: const Text('Update Profile',),backgroundColor: Colors.black26
         ),
         drawer: Drawer_User(),
 

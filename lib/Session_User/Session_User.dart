@@ -59,7 +59,7 @@ class _Session_UserState extends State<Session_User> {
     final AuthController controller=Get.put(AuthController());
     return Scaffold(
         appBar: AppBar(
-          title: const Text("User"),
+          title: const Text("User"),backgroundColor: Colors.black26,
           actions: <Widget>[
             IconButton(
                 icon: Icon(Icons.logout),

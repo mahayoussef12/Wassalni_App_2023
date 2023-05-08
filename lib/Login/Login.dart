@@ -80,7 +80,6 @@ class Login extends StatelessWidget {
         child:ElevatedButton(
             onPressed: (){
               if(controller.checkLogin()){
-                // print(rool);
                 Auth_controller.signIn(controller.emailController.text.trim(),controller.passwordController.text.trim());}
               },
           style: ElevatedButton.styleFrom(

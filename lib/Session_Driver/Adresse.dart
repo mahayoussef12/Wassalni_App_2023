@@ -141,9 +141,9 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
                   });
                 },
                 // Add your onPressed code here!
-              label: const Text('Current Location'),
-              icon: const Icon(Icons.location_on_rounded),
-              backgroundColor: Colors.blueAccent,
+                label: const Text('Current Location'),
+                 icon: const Icon(Icons.location_on_rounded),
+                 backgroundColor:  Colors.black54,
 
             ),)
 

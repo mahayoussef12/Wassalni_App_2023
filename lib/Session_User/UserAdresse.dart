@@ -185,7 +185,7 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreenUser> {
                     // Add your onPressed code here!
                     label: const Text('Current Location'),
                     icon: const Icon(Icons.location_on_rounded),
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor:  Colors.black54,
 
                   ),
                 ),

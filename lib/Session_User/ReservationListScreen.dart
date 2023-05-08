@@ -11,7 +11,7 @@ class ReservationlistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: const Text("User"),),
+    return Scaffold(appBar: AppBar(title: const Text("Reservation List "),backgroundColor: Colors.black26),
         drawer: Drawer_User(),
 
         body:

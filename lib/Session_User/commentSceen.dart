@@ -24,7 +24,7 @@ class _CommentPageState extends State<CommentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Commentaires'),
+          title: const Text('Commentaires'),backgroundColor: Colors.black26
         ),
         drawer: Drawer_User(),
 

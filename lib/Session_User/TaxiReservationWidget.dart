@@ -41,7 +41,7 @@ class _CompleteFormState extends State<CompleteForm> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Booking Forme')),
+      appBar: AppBar(title: const Text('Booking Forme'),backgroundColor: Colors.black26),
       drawer: Drawer_User(),
 
       body: Padding(

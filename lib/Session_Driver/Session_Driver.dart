@@ -55,7 +55,7 @@ class _Session_DriverState extends State<Session_Driver> {
     Widget build(BuildContext context) {
       final AuthController controller=Get.put(AuthController());
       return Scaffold(
-          appBar: AppBar(title: const Text("Driver"),
+          appBar: AppBar(title: const Text("Driver",),backgroundColor: Colors.black26,
             actions: <Widget>[
               IconButton(
                   icon: const Icon(Icons.logout),
