@@ -136,6 +136,7 @@ class ReservationlistScreen extends StatelessWidget {
 
                         return Center(child: Column(
                           children: [
+                            const SizedBox(height: 300,),
                             Image.asset('images/noresult.png',height:100),
                             const SizedBox(height: 20,),
                             Text("No result .. 👋")

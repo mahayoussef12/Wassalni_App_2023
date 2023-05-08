@@ -76,21 +76,18 @@ class _Session_UserState extends State<Session_User> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 const DrawerHeader(
-                  child: Text(
-                    'Menu',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  ),
                   decoration: BoxDecoration(
-                      color: Colors.yellow,
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('assets/images/cover.jpg'))),
+                    gradient: LinearGradient(
+                        colors: [Colors.white, Colors.grey]),
+                  ), child:CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage: NetworkImage(
+                        "https://media.tenor.com/u0YeDNfyHWkAAAAi/cab-traffic.gif")),
                 ),
                 ListTile(
-                  leading: Icon(Icons.input),
-                  title: Text('Welcome'),
-                  onTap: () => {},
-                ),
+                    title:  Center(child:Text("${controller.user}"))),
+
+
                 ListTile(
                   leading: const Icon(Icons.verified_user),
                   title: const Text('Profile'),
@@ -98,7 +95,7 @@ class _Session_UserState extends State<Session_User> {
                 ),
                 ListTile(
                   leading: Icon(Get.isDarkMode ?Icons.light_mode_outlined : Icons.dark_mode),
-                  title: Text('Settings'),
+                  title: Text("Mode Sombre"),
                   onTap: () => {  Get.changeTheme(Get.isDarkMode? ThemeData.light():ThemeData.dark())},
                 ),
                 ListTile(

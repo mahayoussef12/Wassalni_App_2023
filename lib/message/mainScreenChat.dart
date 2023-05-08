@@ -39,8 +39,6 @@ class _MyHomePageState extends State<mainScreen> {
           children: <Widget>[
             const HomeScreen(),
             const OnlineScreen(),
-            Container(color: Colors.green,),
-            Container(color: Colors.blue,),
           ],
         ),
       ),
@@ -64,11 +62,6 @@ class _MyHomePageState extends State<mainScreen> {
               activeColor: Colors.purpleAccent
           ),
 
-          BottomNavyBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('Settings'),
-              activeColor: Colors.blue
-          ),
         ],
       ),
     );

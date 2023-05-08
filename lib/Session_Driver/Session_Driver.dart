@@ -9,6 +9,7 @@ import 'package:wassalni/message/mainScreenChat.dart';
 import '../Session_User/Controller.dart';
 import '../Session_User/UpdateScreen.dart';
 import 'Adresse.dart';
+import 'ReservationListScreenDriver.dart';
 
 class Session_Driver extends StatefulWidget {
   const Session_Driver({Key? key}) : super(key: key);
@@ -71,20 +72,16 @@ class _Session_DriverState extends State<Session_Driver> {
                 children: <Widget>[
                   const DrawerHeader(
                     decoration: BoxDecoration(
-                        color: Colors.yellow,
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/images/cover.jpg'))),
-                    child: Text(
-                      'Menu',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
+                      gradient: LinearGradient(
+                          colors: [Colors.white, Colors.grey]),
+                    ), child:CircleAvatar(
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage(
+                          "https://media.tenor.com/76rJ6E3tzyoAAAAi/jamrock-taxi-jamaica.gif")),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.input),
-                    title: const Text('Welcome'),
-                    onTap: () => {},
-                  ),
+                      title:  Center(child:Text("${controller.user}"))),
+
                   ListTile(
                     leading: const Icon(Icons.verified_user),
                     title: const Text('Profile'),
@@ -92,13 +89,18 @@ class _Session_DriverState extends State<Session_Driver> {
                   ),
                   ListTile(
                     leading: Icon(Get.isDarkMode ?Icons.light_mode_outlined : Icons.dark_mode),
-                    title: const Text('Switch Mode'),
+                    title: Text("Mode Sombre"),
                     onTap: () => {  Get.changeTheme(Get.isDarkMode? ThemeData.light():ThemeData.dark())},
                   ),
                   ListTile(
                     leading: const Icon(Icons.messenger_outlined),
                     title: const Text('Chats'),
                     onTap: () => {Get.to(const mainScreen())},
+                  ),
+                  ListTile(
+                      leading: Icon(Icons.taxi_alert),
+                      title: Text('Taxi Reservation'),
+                      onTap : ()  {Get.to(ReservationlistScreenDriver());}
                   ),
                   ListTile(
                     leading: const Icon(Icons.exit_to_app),

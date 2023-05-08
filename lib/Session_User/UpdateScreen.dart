@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+
+import '../Singup/LoginHeaderWidget.dart';
+import '../Singup/ValidationSiginup.dart';
 
 class ProfileUpdateScreen extends StatefulWidget {
   @override
@@ -13,6 +17,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
+  final ValidateScreen controller = Get.put(ValidateScreen());
 
   @override
   void initState() {
@@ -23,7 +28,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   void getUserData() async {
     final User? user = _auth.currentUser;
     final DocumentSnapshot userData =
-    await _firestore.collection('users').doc(user!.uid).get();
+        await _firestore.collection('users').doc(user!.uid).get();
     setState(() {
       _nameController.text = userData['name'];
       _emailController.text = userData['email'];
@@ -34,7 +39,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   void updateUserData() async {
     final User? user = _auth.currentUser;
     final DocumentReference userRef =
-    _firestore.collection('users').doc(user!.uid);
+        _firestore.collection('users').doc(user!.uid);
     userRef.update({
       'name': _nameController.text,
       'email': _emailController.text,
@@ -45,44 +50,107 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Profile'),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                ),
-              ),
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                ),
-              ),
-              TextField(
-                controller: _phoneNumberController,
-                decoration: const InputDecoration(
-                  labelText: 'Phone Number',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  updateUserData();
-                  Navigator.pop(context);
-                },
-                child: const Text('Update Profile'),
-              ),
-            ],
-          ),
+        appBar: AppBar(
+          title: const Text('Update Profile'),
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+            padding: const EdgeInsets.all(30.0),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const LoginHeaderWidget(
+                    image: 'images/taxi_update.JPG',
+                    title: 'Get On Board ',
+                    subtitle: 'Update your profile to start your journey',
+                  ),
+                   Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20.0,
+                      ),
+                    child: Form(
+                      key: controller.SiginFormKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  label: Text("Name"),
+                                  border: OutlineInputBorder(),
+                                  prefixIcon: Icon(
+                                    Icons.person,
+                                    color: Colors.black,
+                                  ),
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 2.0, color: Colors.yellow))),
+                              controller: _nameController,
+                              validator: (value) {
+                                return controller.validateName(value!);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  label: Text("Email"),
+                                  border: OutlineInputBorder(),
+                                  prefixIcon: Icon(
+                                    Icons.email,
+                                    color: Colors.black,
+                                  ),
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 2.0, color: Colors.yellow))),
+                              controller: _emailController,
+                              validator: (value) {
+                                return controller.validateEmail(value!);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  label: Text("Number"),
+                                  border: OutlineInputBorder(),
+                                  prefixIcon: Icon(
+                                    Icons.phone,
+                                    color: Colors.black,
+                                  ),
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 2.0, color: Colors.yellow))),
+                              controller: _phoneNumberController,
+                              validator: (value) {
+                                return controller.validateNumber(value!);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    if (controller.checkLogin() == true) {
+                                      updateUserData();
+                                      Navigator.pop(context);
+                                    }
+                                  },
+                                  child: const Text('Update Profile'),
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    backgroundColor: Colors.black,
+                                    shape: RoundedRectangleBorder(),
+                                    foregroundColor: Colors.white,
+                                    side: BorderSide(color: Colors.black),
+                                  )),
+                            ),
+                          ])))
+            ])));
   }
 }
