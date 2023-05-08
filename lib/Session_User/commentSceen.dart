@@ -31,13 +31,13 @@ class _CommentPageState extends State<CommentPage> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [
-            Text(
+            const Text(
               'Notez notre service',
               style: TextStyle(
                 fontSize: 18,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -97,28 +97,40 @@ class _CommentPageState extends State<CommentPage> {
               ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                if (_commentController.text.isNotEmpty) {
-                  DocumentReference docRef = await FirebaseFirestore.instance
-                      .collection('comments')
-                      .add({
+            SizedBox(
+                width: double.infinity,
+                child:ElevatedButton(
+                    onPressed: () async {
+                    if (_commentController.text.isNotEmpty) {
+                    DocumentReference docRef = await FirebaseFirestore.instance
+                        .collection('comments')
+                        .add({
                     'text': _commentController.text.trim(),
                     'rating': _rating,
                     'idUser': FirebaseAuth.instance.currentUser!.uid
-                  });
-                  String taskId = docRef.id;
-                  await FirebaseFirestore.instance
-                      .collection('comments')
-                      .doc(taskId)
-                      .update(
+                    });
+                    String taskId = docRef.id;
+                    await FirebaseFirestore.instance
+                        .collection('comments')
+                        .doc(taskId)
+                        .update(
                     {'id': taskId},
-                  );
-                  clearAll();
-                }
-              },
-              child: const Text('Ajouter'),
+                    );
+                    clearAll();
+                    }
+                    },
+
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: Colors.black,
+                      shape: const RoundedRectangleBorder(),
+                      foregroundColor: Colors.white,
+                      side: const BorderSide(
+                          color: Colors.black
+                      ),), child: const Text("Ajouter"))
             ),
+
+
             const SizedBox(width: 2),
             Expanded(
                 child: StreamBuilder(
@@ -176,14 +188,15 @@ class _CommentPageState extends State<CommentPage> {
                                               final editedComment =
                                                   await showDialog<Comment>(
                                                 context: context,
-                                                builder:
-                                                    (BuildContext context) {
+                                                builder: (BuildContext context) {
                                                   controller_feedback.index(_list[index].id);
                                                   String commentText =
                                                       _list[index].text;
-                                                  double rating =
-                                                      _list[index].rating;
-                                                  return AlertDialog(
+                                                  double rating =_list[index].rating;
+                                                  return StatefulBuilder(
+                                          builder: (BuildContext context, void Function(void Function()) setState) {
+
+                                            return AlertDialog(
                                                     title: const Text(
                                                         'Modifier le commentaire'),
                                                     content: Column(
@@ -211,41 +224,51 @@ class _CommentPageState extends State<CommentPage> {
                                                           style: TextStyle(
                                                               fontSize: 18),
                                                         ),
-                                                        SizedBox(height: 8),
+                                                        const SizedBox(height: 8),
                                                         Row(
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             IconButton(
                                                               onPressed: () {
-
+                                                                setState(() {
+                                                                  rating = 1.0;
+                                                                });
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 1.0 ? Colors.amber : Colors.grey),
                                                             ),
                                                             IconButton(
                                                               onPressed: () {
-
+                                                                setState(() {
+                                                                  rating = 2.0;
+                                                                });
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 2.0 ? Colors.amber : Colors.grey),
                                                             ),
                                                             IconButton(
                                                               onPressed: () {
-
+                                                                setState(() {
+                                                                  rating = 3.0;
+                                                                });
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 3.0 ? Colors.amber : Colors.grey),
                                                             ),
                                                             IconButton(
                                                               onPressed: () {
-
+                                                                setState(() {
+                                                                  rating = 4.0;
+                                                                });
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 4.0 ? Colors.amber : Colors.grey),
                                                             ),
                                                             IconButton(
                                                               onPressed: () {
-
+                                                                setState(() {
+                                                                  rating = 5.0;
+                                                                });
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 5.0 ? Colors.amber : Colors.grey),
@@ -260,7 +283,8 @@ class _CommentPageState extends State<CommentPage> {
                                                           Navigator.of(context)
                                                               .pop();
                                                         },
-                                                        child: Text('Annuler'),
+                                                        child: const Text('Annuler'),
+
                                                       ),
                                                       ElevatedButton(
                                                         onPressed: () {
@@ -283,13 +307,21 @@ class _CommentPageState extends State<CommentPage> {
                                                           Navigator.of(context)
                                                               .pop(edited);
                                                         },
+                                                      style: ElevatedButton.styleFrom(
+                                                      elevation: 0,
+                                                      backgroundColor: Colors.black,
+                                                      shape: const RoundedRectangleBorder(),
+                                                      foregroundColor: Colors.white,
+                                                      side: const BorderSide(
+                                                      color: Colors.black
+                                                      ),),
                                                         child:
-                                                            Text('Enregistrer'),
+                                                            const Text('Enregistrer'),
                                                       ),
                                                     ],
                                                   );
                                                 },
-                                              );
+                                              );});
                                               if (editedComment != null) {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
