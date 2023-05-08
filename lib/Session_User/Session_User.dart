@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:wassalni/Constants.dart';
 import 'dart:convert';
+import '../Weather/ui/widgets/app/my_app.dart';
 import '../audio_player/audio.dart';
 import '../message/mainScreenChat.dart';
 import 'ReservationListScreen.dart';
@@ -127,6 +128,12 @@ class _Session_UserState extends State<Session_User> {
                   title: Text('Music'),
                   onTap: () => {Get.to(audio())},
                 ),
+                ListTile(
+                  leading: Icon(Icons.ac_unit_rounded),
+                  title: Text('Weather'),
+                  onTap: () => {Get.to(const weather())},
+                ),
+
                 ListTile(
                   leading: Icon(Icons.exit_to_app),
                   title: Text('Logout'),

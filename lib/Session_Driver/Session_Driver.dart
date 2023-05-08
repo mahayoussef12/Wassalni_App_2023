@@ -2,7 +2,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:wassalni/Firebase/AuthentificationController.dart';
 import 'package:wassalni/Session_User/push_notification_booking.dart';
 import 'package:wassalni/Splash/spalsh_screen.dart';
@@ -65,68 +64,84 @@ class _Session_DriverState extends State<Session_Driver> {
                   }),
             ],
           ),
-          drawer: Container(
-            color: Colors.white,
-            width: 255.0,
-            child: Drawer(
+          drawer: session(),
 
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  const DrawerHeader(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.white, Colors.grey]),
-                    ), child:CircleAvatar(
-                      backgroundColor: Colors.white,
-                      backgroundImage: NetworkImage(
-                          "https://media.tenor.com/76rJ6E3tzyoAAAAi/jamrock-taxi-jamaica.gif")),
-                  ),
-                  ListTile(
-                      title:  Center(child:Text("${controller.user}"))),
-
-                  ListTile(
-                    leading: const Icon(Icons.verified_user),
-                    title: const Text('Profile'),
-                    onTap: () => {Get.to(ProfileUpdateScreen())},
-                  ),
-                  ListTile(
-                    leading: Icon(Get.isDarkMode ?Icons.light_mode_outlined : Icons.dark_mode),
-                    title: Text("Mode Sombre"),
-                    onTap: () => {  Get.changeTheme(Get.isDarkMode? ThemeData.light():ThemeData.dark())},
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.messenger_outlined),
-                    title: const Text('Chats'),
-                    onTap: () => {Get.to(const mainScreen())},
-                  ),
-                  ListTile(
-                      leading: Icon(Icons.taxi_alert),
-                      title: Text('Taxi Reservation'),
-                      onTap : ()  {Get.to(ReservationlistScreenDriver());}
-                  ),
-                  ListTile(
-                      leading: Icon(Icons.ac_unit_rounded),
-                      title: Text('Weather'),
-                    onTap: () => {Get.to(const weather())},
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.queue_music),
-                    title: Text('Music'),
-                    onTap: () => {Get.to(audio())},
-                  ),
-
-
-                  ListTile(
-                    leading: const Icon(Icons.exit_to_app),
-                    title: const Text('Logout'),
-                    onTap: () => {controller.signOut()},
-                  ),
-                ],
-              ),
-
-            ),
-          ),
           body:const CurrentLocationScreen());
   }
 }
+class session extends StatelessWidget {
+   session({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final AuthController controller=Get.put(AuthController());
+
+    return Container(
+        color: Colors.white,
+        width: 255.0,
+        child: Drawer(
+
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Colors.white, Colors.grey]),
+                ), child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: NetworkImage(
+                      "https://media.tenor.com/76rJ6E3tzyoAAAAi/jamrock-taxi-jamaica.gif")),
+              ),
+              ListTile(
+                  title: Center(child: Text("${controller.user}"))),
+
+              ListTile(
+                leading: const Icon(Icons.verified_user),
+                title: const Text('Profile'),
+                onTap: () => {Get.to(ProfileUpdateScreen())},
+              ),
+              ListTile(
+                leading: Icon(
+                    Get.isDarkMode ? Icons.light_mode_outlined : Icons.dark_mode),
+                title: Text("Mode Sombre"),
+                onTap: () => {
+                  Get.changeTheme(
+                      Get.isDarkMode ? ThemeData.light() : ThemeData.dark())
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.messenger_outlined),
+                title: const Text('Chats'),
+                onTap: () => {Get.to(const mainScreen())},
+              ),
+              ListTile(
+                  leading: Icon(Icons.taxi_alert),
+                  title: Text('Taxi Reservation'),
+                  onTap: () {
+                    Get.to(ReservationlistScreenDriver());
+                  }
+              ),
+              ListTile(
+                leading: Icon(Icons.ac_unit_rounded),
+                title: Text('Weather'),
+                onTap: () => {Get.to(const weather())},
+              ),
+              ListTile(
+                leading: Icon(Icons.queue_music),
+                title: Text('Music'),
+                onTap: () => {Get.to(audio())},
+              ),
+
+
+              ListTile(
+                leading: const Icon(Icons.exit_to_app),
+                title: const Text('Logout'),
+                onTap: () => {controller.signOut()},
+              ),
+            ],
+          ),
+
+        ));
+  }
+}
+

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wassalni/Model/booking.dart';
 import 'package:wassalni/Session_Driver/ControllerReservation.dart';
+import 'package:wassalni/Session_Driver/Session_Driver.dart';
 
 
 
@@ -13,7 +14,8 @@ class ReservationlistScreenDriver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: const Text("Reservation "),),
+    return Scaffold(appBar: AppBar(title: const Text("Reservation "),backgroundColor: Colors.yellowAccent,),
+        drawer: session(),
         body:
         Center(child:
           StreamBuilder(

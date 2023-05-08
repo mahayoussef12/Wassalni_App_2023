@@ -75,10 +75,6 @@ dependencies:
   shared_preferences:
   percent_indicator: ^4.2.3
   awesome_dialog: ^3.0.2
- # awesome_notifications: ^0.6.21
-  agora_rtc_engine: ^5.3.0
-  permission_handler: any
-  rflutter_alert: ^2.0.4
   intl: ^0.17.0
   flutter_rating_bar:
   flutter_stripe: ^1.3.0

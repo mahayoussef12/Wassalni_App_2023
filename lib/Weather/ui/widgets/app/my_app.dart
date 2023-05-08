@@ -13,9 +13,9 @@ class weather extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: ChangeNotifierProvider(
-          child: const MainScreenWidget(),
           create: (_) => MainScreenModel(),
           lazy: false,
+          child: const MainScreenWidget(),
         ),
       ),
     );

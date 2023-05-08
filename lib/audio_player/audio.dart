@@ -14,11 +14,10 @@ class audio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FlutterPlay Songs',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'FlutterPlay Songs'),
+      home: const MyHomePage(title: 'Songs'),
     );
   }
 }
@@ -88,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     if(isPlayerViewVisible){
       return Scaffold(
-        backgroundColor: bgColor,
+        backgroundColor:Colors.amberAccent,
+        appBar: AppBar(title:const Text("Song")),
         body: SingleChildScrollView(
           child: Container(
             width: double.infinity,
