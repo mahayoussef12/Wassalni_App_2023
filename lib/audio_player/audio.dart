@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // bg color
   //Color bgColor = const Color(0XFF2A2A2A); //Colors.black;
-  Color bgColor = Colors.brown;
+  Color bgColor = Colors.black12;
 
   //define on audio plugin
   final OnAudioQuery _audioQuery = OnAudioQuery();
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     if(isPlayerViewVisible){
       return Scaffold(
-        backgroundColor:Colors.amberAccent,
+        backgroundColor:Colors.black26,
         appBar: AppBar(title:const Text("Song")),
         body: SingleChildScrollView(
           child: Container(
