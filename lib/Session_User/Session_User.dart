@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:wassalni/Constants.dart';
 import 'dart:convert';
+import '../audio_player/audio.dart';
 import '../message/mainScreenChat.dart';
 import 'ReservationListScreen.dart';
 import 'commentSceen.dart';
@@ -120,6 +121,11 @@ class _Session_UserState extends State<Session_User> {
                     leading: Icon(Icons.taxi_alert),
                     title: Text('Taxi Reservation '),
                     onTap : ()  {Get.to(ReservationlistScreen());}
+                ),
+                ListTile(
+                  leading: Icon(Icons.queue_music),
+                  title: Text('Music'),
+                  onTap: () => {Get.to(audio())},
                 ),
                 ListTile(
                   leading: Icon(Icons.exit_to_app),

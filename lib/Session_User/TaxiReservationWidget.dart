@@ -149,20 +149,27 @@ class _CompleteFormState extends State<CompleteForm> {
                     const SizedBox(width: 20),
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.always,
-                      name: 'Destination',
+                      name: 'destination',
                       decoration: InputDecoration(
-                        labelText: 'Enter Destination ',
-                        suffixIcon: _destinationHasError
+                        labelText: 'Destination',
+                        suffixIcon: _ageHasError
                             ? const Icon(Icons.error, color: Colors.red)
-                            : const Icon(Icons.map_sharp, color: Colors.green),
+                            : const Icon(Icons.check, color: Colors.green),
                       ),
                       onChanged: (val) {
                         setState(() {
                           _destinationHasError = !(_formKey.currentState?.fields['destination']
-                              ?.validate() ?? false);});},
+                              ?.validate() ??
+                              false);
+                        });
+                      },
                       // valueTransformer: (text) => num.tryParse(text),
-                      validator: FormBuilderValidators.compose([FormBuilderValidators.required(),]),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.max(70),
+                      ]),
                       // initialValue: '12',
+                      keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
                     ),
 
@@ -215,7 +222,7 @@ class _CompleteFormState extends State<CompleteForm> {
                           final Things = formValue['Things'];
                           final gender = formValue['gender'];
                           final destination=formValue['destination'];
-                          //var i=0;
+
                           DocumentReference docRef = await  firstore.collection('bookings').add({
                             'dateTime':dateTime,
                             'age':age,

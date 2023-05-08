@@ -198,7 +198,7 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreenUser> {
       setState(() {
         _markers.add(
             Marker(
-                markerId: MarkerId("${i.name}"),
+                markerId: MarkerId(i.name),
                 position: LatLng(i.latitude, i.longitude),
                 //icon: markerbitmap,
                 onTap: () {

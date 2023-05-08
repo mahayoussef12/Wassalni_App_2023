@@ -10,9 +10,9 @@ import 'package:wassalni/message/mainScreenChat.dart';
 import '../Session_User/Controller.dart';
 import '../Session_User/UpdateScreen.dart';
 import '../Weather/ui/widgets/app/my_app.dart';
+import '../audio_player/audio.dart';
 import 'Adresse.dart';
 import 'ReservationListScreenDriver.dart';
-import 'audio_player.dart';
 
 class Session_Driver extends StatefulWidget {
   const Session_Driver({Key? key}) : super(key: key);
@@ -110,6 +110,13 @@ class _Session_DriverState extends State<Session_Driver> {
                       title: Text('Weather'),
                     onTap: () => {Get.to(const weather())},
                   ),
+                  ListTile(
+                    leading: Icon(Icons.queue_music),
+                    title: Text('Music'),
+                    onTap: () => {Get.to(audio())},
+                  ),
+
+
                   ListTile(
                     leading: const Icon(Icons.exit_to_app),
                     title: const Text('Logout'),
