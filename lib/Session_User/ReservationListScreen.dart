@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wassalni/Model/booking.dart';
 
+import 'Session_User.dart';
 import 'comment_service.dart';
 
 class ReservationlistScreen extends StatelessWidget {
@@ -11,6 +12,8 @@ class ReservationlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(title: const Text("User"),),
+        drawer: Drawer_User(),
+
         body:
         Center(child:
         StreamBuilder(
@@ -29,6 +32,7 @@ class ReservationlistScreen extends StatelessWidget {
                           .toList() ?? [];
                       if (_list.isNotEmpty) {
                         return ListView.builder(
+                            physics: const BouncingScrollPhysics(),
                             itemCount: _list.length,
                             itemBuilder: (BuildContext context, int index) {
                               controller_feedback.index(_list[index].id);

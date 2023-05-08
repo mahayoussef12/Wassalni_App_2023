@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wassalni/Session_User/UserAdresse.dart';
 import 'package:wassalni/Session_User/push_notification_booking.dart';
 import '../Singup/LoginHeaderWidget.dart';
+import 'Session_User.dart';
 
 
 class CompleteForm extends StatefulWidget {
@@ -41,6 +42,8 @@ class _CompleteFormState extends State<CompleteForm> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Booking Forme')),
+      drawer: Drawer_User(),
+
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(

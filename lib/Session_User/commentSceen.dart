@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'Session_User.dart';
 import 'comment_service.dart';
 
 class CommentPage extends StatefulWidget {
@@ -25,6 +26,8 @@ class _CommentPageState extends State<CommentPage> {
         appBar: AppBar(
           title: const Text('Commentaires'),
         ),
+        drawer: Drawer_User(),
+
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [
@@ -136,9 +139,7 @@ class _CommentPageState extends State<CommentPage> {
                               [];
                           if (_list.isNotEmpty) {
                             return ListView.builder(
-                                reverse: true,
                                 itemCount: _list.length,
-                                padding: EdgeInsets.only(top: 0.2),
                                 physics: const BouncingScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
                                   controller_feedback.index(_list[index].id);

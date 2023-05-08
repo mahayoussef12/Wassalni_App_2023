@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../Singup/LoginHeaderWidget.dart';
 import '../Singup/ValidationSiginup.dart';
+import 'Session_User.dart';
 
 class ProfileUpdateScreen extends StatefulWidget {
   @override
@@ -53,6 +54,8 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
         appBar: AppBar(
           title: const Text('Update Profile'),
         ),
+        drawer: Drawer_User(),
+
         body: SingleChildScrollView(
             padding: const EdgeInsets.all(30.0),
             child:

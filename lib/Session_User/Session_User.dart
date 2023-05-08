@@ -69,84 +69,9 @@ class _Session_UserState extends State<Session_User> {
 
           ],
         ),
-        drawer: Container(
-          color: Colors.white,
-          width: 255.0,
-          child: Drawer(
+        drawer: Drawer_User(),
 
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                const DrawerHeader(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Colors.white, Colors.grey]),
-                  ), child:CircleAvatar(
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(
-                        "https://media.tenor.com/u0YeDNfyHWkAAAAi/cab-traffic.gif")),
-                ),
-                ListTile(
-                    title:  Center(child:Text("${controller.user}"))),
-
-
-                ListTile(
-                  leading: const Icon(Icons.verified_user),
-                  title: const Text('Profile'),
-                  onTap: () => {Get.to(ProfileUpdateScreen())},
-                ),
-                ListTile(
-                  leading: Icon(Get.isDarkMode ?Icons.light_mode_outlined : Icons.dark_mode),
-                  title: Text("Mode Sombre"),
-                  onTap: () => {  Get.changeTheme(Get.isDarkMode? ThemeData.light():ThemeData.dark())},
-                ),
-                ListTile(
-                  leading: Icon(Icons.messenger_rounded),
-                  title: Text('chats'),
-                  onTap: () => {Get.to(mainScreen())},
-                ),
-                ListTile(
-                  leading: Icon(Icons.border_color),
-                  title: Text('feedback'),
-                  onTap: (){
-                    Get.to(CommentPage());
-                  },
-                ),
-                ListTile(
-                    leading: Icon(Icons.money),
-                    title: Text('Make Payment'),
-                    onTap : () async {
-                      await makePayment();}
-                ),
-                ListTile(
-                    leading: Icon(Icons.taxi_alert),
-                    title: Text('Taxi Reservation '),
-                    onTap : ()  {Get.to(ReservationlistScreen());}
-                ),
-                ListTile(
-                  leading: Icon(Icons.queue_music),
-                  title: Text('Music'),
-                  onTap: () => {Get.to(audio())},
-                ),
-                ListTile(
-                  leading: Icon(Icons.ac_unit_rounded),
-                  title: Text('Weather'),
-                  onTap: () => {Get.to(const weather())},
-                ),
-
-                ListTile(
-                  leading: Icon(Icons.exit_to_app),
-                  title: Text('Logout'),
-                  onTap: () => {Navigator.of(context).pop()},
-                ),
-              ],
-            ),
-
-          ),
-        ),
-
-        body://const CustomMarkerInfoWindowScreen());
-        CurrentLocationScreenUser());
+        body:CurrentLocationScreenUser());
   }
   Future<void> makePayment() async {
     try {
@@ -238,3 +163,81 @@ class _Session_UserState extends State<Session_User> {
     return calculatedAmout.toString();
   }
 }
+class Drawer_User extends StatelessWidget {
+ Drawer_User({Key? key}) : super(key: key);
+  final AuthController controller=Get.put(AuthController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      width: 255.0,
+      child: Drawer(
+
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.white, Colors.grey]),
+              ), child:CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: NetworkImage(
+                    "https://media.tenor.com/u0YeDNfyHWkAAAAi/cab-traffic.gif")),
+            ),
+            ListTile(
+                title:  Center(child:Text("${controller.user}"))),
+
+
+            ListTile(
+              leading: const Icon(Icons.verified_user),
+              title: const Text('Profile'),
+              onTap: () => {Get.to(ProfileUpdateScreen())},
+            ),
+            ListTile(
+              leading: Icon(Get.isDarkMode ?Icons.light_mode_outlined : Icons.dark_mode),
+              title: Text("Mode Sombre"),
+              onTap: () => {  Get.changeTheme(Get.isDarkMode? ThemeData.light():ThemeData.dark())},
+            ),
+            ListTile(
+              leading: Icon(Icons.messenger_rounded),
+              title: Text('chats'),
+              onTap: () => {Get.to(mainScreen())},
+            ),
+            ListTile(
+              leading: Icon(Icons.border_color),
+              title: Text('feedback'),
+              onTap: (){
+                Get.to(CommentPage());
+              },
+            ),
+            ListTile(
+                leading: Icon(Icons.taxi_alert),
+                title: Text('Taxi Reservation '),
+                onTap : ()  {Get.to(ReservationlistScreen());}
+            ),
+            ListTile(
+              leading: Icon(Icons.queue_music),
+              title: Text('Music'),
+              onTap: () => {Get.to(audio())},
+            ),
+            ListTile(
+              leading: Icon(Icons.ac_unit_rounded),
+              title: Text('Weather'),
+              onTap: () => {Get.to(const weather())},
+            ),
+
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('Logout'),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+          ],
+        ),
+
+      ),
+    );
+  }
+}
+
