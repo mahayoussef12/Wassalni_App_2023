@@ -103,7 +103,7 @@ class _CommentPageState extends State<CommentPage> {
                     'text': _commentController.text.trim(),
                     'rating': _rating,
                     'idUser': FirebaseAuth.instance.currentUser!.uid
-                  }).then((value) => clearAll());
+                  });
                   String taskId = docRef.id;
                   await FirebaseFirestore.instance
                       .collection('comments')
@@ -111,7 +111,7 @@ class _CommentPageState extends State<CommentPage> {
                       .update(
                     {'id': taskId},
                   );
-
+                  clearAll();
                 }
               },
               child: const Text('Ajouter'),
@@ -177,8 +177,7 @@ class _CommentPageState extends State<CommentPage> {
                                                 context: context,
                                                 builder:
                                                     (BuildContext context) {
-                                                  controller_feedback
-                                                      .index(_list[index].id);
+                                                  controller_feedback.index(_list[index].id);
                                                   String commentText =
                                                       _list[index].text;
                                                   double rating =
@@ -191,8 +190,7 @@ class _CommentPageState extends State<CommentPage> {
                                                           MainAxisSize.min,
                                                       children: [
                                                         TextField(
-                                                          controller:
-                                                              TextEditingController(
+                                                          controller: TextEditingController(
                                                                   text:
                                                                       commentText),
                                                           onChanged: (value) {
@@ -218,45 +216,35 @@ class _CommentPageState extends State<CommentPage> {
                                                           children: [
                                                             IconButton(
                                                               onPressed: () {
-                                                                setState(() {
-                                                                  rating = 1.0;
-                                                                });
+
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 1.0 ? Colors.amber : Colors.grey),
                                                             ),
                                                             IconButton(
                                                               onPressed: () {
-                                                                setState(() {
-                                                                  rating = 2.0;
-                                                                });
+
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 2.0 ? Colors.amber : Colors.grey),
                                                             ),
                                                             IconButton(
                                                               onPressed: () {
-                                                                setState(() {
-                                                                  rating = 3.0;
-                                                                });
+
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 3.0 ? Colors.amber : Colors.grey),
                                                             ),
                                                             IconButton(
                                                               onPressed: () {
-                                                                setState(() {
-                                                                  rating = 4.0;
-                                                                });
+
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 4.0 ? Colors.amber : Colors.grey),
                                                             ),
                                                             IconButton(
                                                               onPressed: () {
-                                                                setState(() {
-                                                                  rating = 5.0;
-                                                                });
+
                                                               },
                                                               icon: Icon(Icons.star,
                                                                   color: rating >= 5.0 ? Colors.amber : Colors.grey),

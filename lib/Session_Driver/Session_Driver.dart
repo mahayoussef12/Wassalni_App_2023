@@ -91,9 +91,9 @@ class _Session_DriverState extends State<Session_Driver> {
                     onTap: () => {Get.to(ProfileUpdateScreen())},
                   ),
                   ListTile(
-                    leading: const Icon(Icons.settings),
-                    title: const Text('Settings'),
-                    onTap: () => {Navigator.of(context).pop()},
+                    leading: Icon(Get.isDarkMode ?Icons.light_mode_outlined : Icons.dark_mode),
+                    title: const Text('Switch Mode'),
+                    onTap: () => {  Get.changeTheme(Get.isDarkMode? ThemeData.light():ThemeData.dark())},
                   ),
                   ListTile(
                     leading: const Icon(Icons.messenger_outlined),

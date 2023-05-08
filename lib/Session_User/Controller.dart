@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wassalni/Model/User.dart';
 import 'package:wassalni/Session_User/push_notification_booking.dart';
-import 'package:wassalni/Session_User/reservation.dart';
 
 import '../Model/booking.dart';
 

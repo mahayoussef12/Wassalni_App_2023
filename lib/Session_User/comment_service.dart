@@ -65,7 +65,36 @@ class Controller_Feedback extends GetxController {
     return firestore
         .collection('comments')
         .where('idUser', isEqualTo:FirebaseAuth.instance.currentUser!.uid ,)
-
         .snapshots();
+  }
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getReservation() {
+
+    return firestore
+        .collection('bookings')
+        .where('idUser', isEqualTo:FirebaseAuth.instance.currentUser!.uid ,)
+        .snapshots();
+  }
+  Future<void> updateDestination(String commentId, String dest) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('bookings')
+          .doc(commentId)
+          .update({'destination':dest }).then((value) =>
+          print(commentId)
+      );
+    } catch (e) {
+      print('Error updating comment in Firebase: $e');
+    }
+  }
+
+  Future<void> deleteDestination(String  card) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('bookings')
+          .doc(card)
+          .delete();
+    } catch (e) {
+      print('Error deleting comment from Firebase: $e');
+    }
   }
 }

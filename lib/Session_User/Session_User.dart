@@ -13,6 +13,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:wassalni/Constants.dart';
 import 'dart:convert';
 import '../message/mainScreenChat.dart';
+import 'ReservationListScreen.dart';
 import 'commentSceen.dart';
 class Session_User extends StatefulWidget {
   const Session_User({Key? key}) : super(key: key);
@@ -96,9 +97,9 @@ class _Session_UserState extends State<Session_User> {
                   onTap: () => {Get.to(ProfileUpdateScreen())},
                 ),
                 ListTile(
-                  leading: const Icon(Icons.settings),
+                  leading: Icon(Get.isDarkMode ?Icons.light_mode_outlined : Icons.dark_mode),
                   title: Text('Settings'),
-                  onTap: () => {Navigator.of(context).pop()},
+                  onTap: () => {  Get.changeTheme(Get.isDarkMode? ThemeData.light():ThemeData.dark())},
                 ),
                 ListTile(
                   leading: Icon(Icons.messenger_rounded),
@@ -117,6 +118,11 @@ class _Session_UserState extends State<Session_User> {
                     title: Text('Make Payment'),
                     onTap : () async {
                       await makePayment();}
+                ),
+                ListTile(
+                    leading: Icon(Icons.taxi_alert),
+                    title: Text('Taxi Reservation '),
+                    onTap : ()  {Get.to(ReservationlistScreen());}
                 ),
                 ListTile(
                   leading: Icon(Icons.exit_to_app),

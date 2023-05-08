@@ -71,7 +71,7 @@ class Push {
     final prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString("document");
     _db.collection('users')
-        .doc(prefs.getString('document'))
+        .doc(id)
         .get()
         .then((DocumentSnapshot documentSnapshot) async {
       if (documentSnapshot.exists) {

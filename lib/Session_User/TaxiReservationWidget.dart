@@ -13,8 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wassalni/Session_User/UserAdresse.dart';
 import 'package:wassalni/Session_User/push_notification_booking.dart';
 import '../Singup/LoginHeaderWidget.dart';
-import 'Controller.dart';
-import 'reservation.dart';
 
 
 class CompleteForm extends StatefulWidget {
@@ -35,24 +33,16 @@ class _CompleteFormState extends State<CompleteForm> {
   bool _genderHasError = false;
   bool _thingHasError = false;
   bool _songHasError = false;
-
   var genderOptions = ['Male', 'Female', 'Other'];
   bool _destinationHasError = false;
-
-
-
   void _onChanged(dynamic val) => debugPrint(val.toString());
-
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(title: const Text('Booking Forme')),
       body: Padding(
         padding: const EdgeInsets.all(10),
-
-
-
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -101,9 +91,7 @@ class _CompleteFormState extends State<CompleteForm> {
                           _ageHasError = !(_formKey.currentState?.fields['age']
                               ?.validate() ??
                               false);
-
                         });
-
                       },
                       // valueTransformer: (text) => num.tryParse(text),
                       validator: FormBuilderValidators.compose([
@@ -228,7 +216,7 @@ class _CompleteFormState extends State<CompleteForm> {
                           final gender = formValue['gender'];
                           final destination=formValue['destination'];
                           //var i=0;
-                          firstore.collection('bookings').add({
+                          DocumentReference docRef = await  firstore.collection('bookings').add({
                             'dateTime':dateTime,
                             'age':age,
                             'Song':Song,
@@ -238,10 +226,15 @@ class _CompleteFormState extends State<CompleteForm> {
                             'idDriver': prefs.getString('idDriver'),
                             'acceptation':false,
                             'idUser': FirebaseAuth.instance.currentUser!.uid,
-                            }).then((DocumentReference doc) =>
-                        //  print("id my doc is ${doc.id}"),
-                          Push.sendPushNotification(doc.id)
+                            });
+                          String taskId = docRef.id;
+                          await FirebaseFirestore.instance
+                              .collection('bookings')
+                              .doc(taskId)
+                              .update(
+                            {'id': taskId},
                           );
+                          Push.sendPushNotification(taskId);
                           try {
                             // Show a success message to the user
                             ScaffoldMessenger.of(context).showSnackBar(

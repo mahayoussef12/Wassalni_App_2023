@@ -125,7 +125,12 @@ class Login extends StatelessWidget {
       ElevatedButton(onPressed:
           (){ Get.to(ChatPage());
 
-      }, child:Icon(Icons.mark_unread_chat_alt) )
+      },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.black,
+          alignment: Alignment.bottomLeft,
+        ),child:Icon(Icons.mark_unread_chat_alt),
+      )
 
     ])))]))));
   }
